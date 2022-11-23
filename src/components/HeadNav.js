@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useNavigate } from "react-router-dom";
 const pages = ['cards', 'decks', 'articles', 'battles'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const pagesDict = {
@@ -23,6 +24,7 @@ const pagesDict = {
 function HeadNav() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -37,9 +39,52 @@ function HeadNav() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const loginDisplay = () =>
+  (
+    <Box sx={{ flexGrow: 0 }}>
+            <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'black', display: 'block' }}
+              >
+                Login
+              </Button>
+    </Box>
+  )
+  const avatarDisplay = () =>
+  (
+    <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+    </Box>
+  )
   return (
     <AppBar position="static" >
-      <Container maxWidth="xl">
+      <Container maxWidth="xxl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
@@ -48,6 +93,7 @@ function HeadNav() {
             href="/"
             sx={{
               mr: 2,
+              flexGrow: 0,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -89,8 +135,12 @@ function HeadNav() {
               }}
             >
               {pages.map((page) =>(
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{pagesDict[page]["title"]}</Typography>
+                <MenuItem key={page} onClick={()=> navigate('/'+page)}>
+                  <Typography 
+                  textAlign="center"
+                  >
+                    {pagesDict[page]["title"]}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -99,7 +149,7 @@ function HeadNav() {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -117,44 +167,14 @@ function HeadNav() {
             {pages.map((page) => (
               <Button
                 key={page}
-                href = {'/'+page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 3, color: 'black', display: 'block' }}
+                onClick={()=> navigate('/'+page)}
+                sx={{ my: 2, color: 'black', display: 'block' }}
               >
                 {pagesDict[page]["title"]}
               </Button>
             ))}
           </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          {loginDisplay()}
         </Toolbar>
       </Container>
     </AppBar>

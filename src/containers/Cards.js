@@ -4,6 +4,10 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { useEffect,useState } from "react";
 import Paper from '@mui/material/Paper';
+import Pagination from '@mui/material/Pagination'
+import Stack from '@mui/material/Stack';
+import Foot from "../components/Foot";
+import CardLibrary from "../components/CardLibrary";
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -13,39 +17,44 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 
+function Cards() {
 
-
-
-function Foot() {
-
+    useEffect(() => {
+        // Just run the first time
+        //alert('render')
+      }, [])
 	return (
-    	<footer>
+    	<>
+            <HeadNav/>
             <Box
             sx = {{
                 backgroundColor: '#F5F5F5',
                 display: "flex",
                 justifyContent: 'center',
-                alignItems: "center",
+                alignContent: "center",
                 width: '100%',
-                height: '15vh',
-                marginTop: 0,
+                height: '300vh',
+                margin: 0,
             }}
             >
                 <Box
-                sx = {{
+                sx={{
+                    width: "99%",
                     display: "flex",
+                    height: "100%",
+                    margin: 0.4,
+                    backgroundColor: 'white',
                     alignItems: "center",
-                    justifyContent: "center",
-
+                    justifyContent: 'center',
                 }}
                 >
-                    <p> ©SV-ToolBox. All Rights Reserved! · version: v0.01</p>
+                    <CardLibrary/>
                 </Box>
-                
             </Box>
-        </footer>
+            <Foot/>
+        </>
 
   	);
 }
 
-export default Foot;
+export default Cards;

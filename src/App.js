@@ -1,6 +1,10 @@
 import logo from './logo.svg';
 //import './App.css';
 import Home from './containers/Home';
+import Articles from './containers/Articles';
+import Battles from './containers/Battles';
+import Decks from './containers/Decks';
+import Cards from './containers/Cards';
 import { Routes ,Route } from 'react-router-dom';
 import { createTheme ,ThemeProvider} from '@mui/material/styles';
 const theme = createTheme({
@@ -20,6 +24,10 @@ function App() {
 		<ThemeProvider theme={theme}>
 			<Routes>
 				<Route  path='/' element={<Home/>} /> 
+        <Route  path='/cards' element={<Cards/>} /> 
+        <Route  path='/decks' element={<Decks/>} /> 
+        <Route  path='/articles' element={<Articles/>} /> 
+        <Route  path='/battles' element={<Battles/>} /> 
 			</Routes>
 		</ThemeProvider>
 

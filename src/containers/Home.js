@@ -12,13 +12,8 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }));
-const Body = styled(Box)
-`
-display: "flex";
-align-content: "center";
-justify-content: "center";
 
-`
+
 function Home() {
 
     useEffect(() => {
@@ -30,7 +25,7 @@ function Home() {
             <HeadNav/>
             <Box
             sx = {{
-                backgroundColor: 'grey',
+                backgroundColor: '#F5F5F5',
                 display: "flex",
                 justifyContent: 'center',
                 alignContent: "center",
