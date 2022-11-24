@@ -39,7 +39,7 @@ function Cards() {
             >
                 <Box
                 sx={{
-                    width: "99%",
+                    width: "100%",
                     display: "flex",
                     height: "100%",
                     margin: 0.4,
