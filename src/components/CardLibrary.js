@@ -13,7 +13,7 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
     textAlign: 'center',
     alignItems: 'center',
-    height : '30vh',
+    height : '22vh',
     color: theme.palette.text.secondary,
   }));
 
@@ -30,9 +30,9 @@ function CardLibrary() {
       }, [])
 	return (
     	<>
-            <Box sx={{ flexGrow: 1 ,height :'100%',display: { xs: 'none', md: 'flex' }, alignItems: "end"}}>
-                <Grid sx={{ width: '100%', height :'100%',alignItems: "space-around",justifyContent: 'space-around',}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
-                  <Grid item xs={4} sm={8} md={12} backgroundColor = "#F5F5F5" height ={0.05} alignItems="center">
+            <Box sx={{ flexGrow: 1 ,height :'100%',width:'100%',display: { xs: 'none', md: 'flex' }, alignItems: "end",justifyContent: 'center'}}>
+                <Grid sx={{ width: '72%', height :'100%',alignItems: "space-around",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                  <Grid item xs={4} sm={8} md={12} backgroundColor = "#F5F5F5" height ={0.05} width = '100%'alignItems="center" justifyContent = "center" m={0}>
                     <Stack direction="row" spacing={2} alignItems="center" justifyContent = "center" height = "100%">
                         <Autocomplete
                         disablePortal
@@ -69,7 +69,7 @@ function CardLibrary() {
                                     height: '100%',
                                     width: '100%',
                                     }}
-                                    src= {lin[page%2]}
+                                    src= {lin[page]}
                                     />
                                 </Item>
                             </Grid>
