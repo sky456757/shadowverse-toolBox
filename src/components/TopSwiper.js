@@ -27,6 +27,7 @@ const Sl = styled(SwiperSlide)(({}) => ({
   backgroundPosition: 'center',
   backgroundSize: '100%',
   color: 'white',
+  textShadow: 'black 0.1em 0.1em 0.2em',
 }));
 
 const TopSwiper =  () => {
@@ -43,9 +44,9 @@ const TopSwiper =  () => {
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={() => console.log('slide change')}
     >
-      <Sl onClick={() => alert('swiper')}>置頂文章 1</Sl>
-      <Sl>置頂文章 2</Sl>
-      <Sl>置頂文章 3</Sl>
+      <Sl><h1>置頂文章 3</h1></Sl>
+      <Sl onClick={() => alert('swiper')}><h1>置頂文章 1</h1></Sl>
+      <Sl><h1>置頂文章 2</h1></Sl>
     </Sw>
   );
 };
