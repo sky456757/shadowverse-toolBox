@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import { useEffect,useState } from "react";
 import Paper from '@mui/material/Paper';
 import Foot from "../components/Foot";
+import TopSwiper from "../components/TopSwiper";
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -44,6 +45,7 @@ function Home() {
                     backgroundColor: 'white',
                 }}
                 >
+                    <TopSwiper/>
                 </Box>
             </Box>
             <Foot/>
