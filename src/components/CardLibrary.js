@@ -32,7 +32,7 @@ function CardLibrary() {
     	<>
             <Box sx={{ flexGrow: 1 ,height :'100%',width:'100%',display: { xs: 'none', md: 'flex' }, alignItems: "end",justifyContent: 'center'}}>
                 <Grid sx={{ width: '72%', height :'100%',alignItems: "space-around",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                  <Grid item xs={4} sm={8} md={12} backgroundColor = "#F5F5F5" height ={0.05} width = '100%'alignItems="center" justifyContent = "center" m={0}>
+                  <Grid item xs={4} sm={8} md={12} backgroundColor = "#F5F5F5" height ={0.05} width = '100%'alignItems="center" justifyContent = "center" m={0} borderRadius = "3%">
                     <Stack direction="row" spacing={2} alignItems="center" justifyContent = "center" height = "100%">
                         <Autocomplete
                         disablePortal
@@ -68,6 +68,7 @@ function CardLibrary() {
                                     sx={{
                                     height: '100%',
                                     width: '100%',
+                                    cursor: 'pointer',
                                     }}
                                     src= {lin[page]}
                                     />
@@ -82,8 +83,33 @@ function CardLibrary() {
                     </Grid>
                 </Grid>
             </Box>
-            <Box sx={{ flexGrow: 1 ,display: { xs: 'flex', md: 'none' }}}>
-                <Grid sx={{ width: '100%', alignItems: "space-around",justifyContent: 'space-around',}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} m ={0}>
+            <Box sx={{ flexGrow: 1 ,height :'100%',width:'100%',display: { xs: 'flex', md: 'none' }, alignItems: "end",justifyContent: 'center'}}>
+                <Grid sx={{ width: '72%', height :'100%',alignItems: "space-around",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                  <Grid item xs={4} sm={8} md={12} backgroundColor = "#F5F5F5" height ={0.05} width = '100%' alignItems="center" justifyContent = "center" m={0} borderRadius = "3%">
+                    <Stack direction="row" spacing={2} alignItems="center" justifyContent = "center" height = "100%">
+                        <Autocomplete
+                        disablePortal
+                        id="cost-box"
+                        options={cost}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="費用" />}
+                        />
+                        <Autocomplete
+                        disablePortal
+                        id="craft-box"
+                        options={craft}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="職業" />}
+                        />
+                        <Autocomplete
+                        disablePortal
+                        id="rare-box"
+                        options={rare}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="稀有度" />}
+                        />
+                    </Stack>
+                  </Grid>
                     {Array.from(Array(16)).map
                     (
                         (_, index) => 
@@ -95,16 +121,19 @@ function CardLibrary() {
                                     sx={{
                                     height: '100%',
                                     width: '100%',
+                                    cursor: 'pointer',
                                     }}
-                                    src="https://shadowverse-portal.com/image/card/phase2/common/C/C_107834020.png"
+                                    src= {lin[page]}
                                     />
                                 </Item>
                             </Grid>
                         )
                     )}
-                    <Stack spacing={2} alignItems="center" >
-                        <Pagination count={10} page ={page} onChange = {handleChange}/>
-                    </Stack>
+                    <Grid item xs={4} sm={8} md={12} height ={0.02} alignItems="center">
+                      <Stack spacing={2} alignItems="center" height="100%">
+                          <Pagination count={10} page ={page} onChange = {handleChange}/>
+                      </Stack>
+                    </Grid>
                 </Grid>
             </Box>
         </>
