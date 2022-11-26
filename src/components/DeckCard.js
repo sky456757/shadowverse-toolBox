@@ -7,20 +7,23 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Divider } from '@mui/material';
 
+const title = " 帥氣血鬼"
+const content = "牌組簡介牌組簡介牌組簡介牌組簡介牌組簡介"
+const inf = "xxx 分享 xx/xx/xx"
 
 export default function DeckCard() {
   return (
     <Card sx={{ maxWidth: 345 ,height:"100%" ,cursor:"pointer"}}>
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
-          帥氣血鬼
+          {title}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          牌組簡介牌組簡介牌組簡介牌組簡介牌組簡介
+          {content}
         </Typography>
         <Divider/>
         <Typography variant="body2" color="text.secondary">
-          xxx 分享 xx/xx/xx
+          {inf}
         </Typography>
       </CardContent>
     </Card>

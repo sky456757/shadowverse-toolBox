@@ -7,7 +7,8 @@ import Paper from '@mui/material/Paper';
 import Foot from "../components/Foot";
 import TopSwiper from "../components/TopSwiper";
 import DeckCard from "../components/DeckCard";
-import { Button } from "@mui/material";
+import { Button, Divider } from "@mui/material";
+import ArticleCard from "../components/ArticleCard";
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -16,7 +17,45 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
+const displayTitle = (T) =>
+(
+    <Grid sx={{ width: '70%', height :'9vh',alignItems: "center",justifyContent: 'space-around',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
+        <Grid item xs={3} sm={3} md={3} alignItems="center" justifyContent = "center" height = {1}>
+            <h2>{T}</h2>
+        </Grid>
+        <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
+        </Grid>
+        <Grid item xs={3} sm={3} md={3} alignItems="center" justifyContent = "center" textAlign="center" height = {1}>
+        </Grid>
+    </Grid>
+)
+const displaySideTitle = (T) =>
+(
+    <Grid sx={{ width: '100%', height :'9vh',alignItems: "center",justifyContent: 'start',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
+        <Grid item xs={3} sm={3} md={12} alignItems="center" justifyContent = "start" height = {1}>
+            <h2>{T}</h2>
+        </Grid>
+    </Grid>
+)
 
+const displayArticleCards = (num) =>
+{
+    const ArticleCount = Array(num).fill(0)
+    const displaylength = 3
+    const rows = Math.ceil(ArticleCount.length/displaylength)
+    const h = String(rows*8)+"%"
+    return(
+        <Grid height = {h} sx={{ width: '70%',alignItems: "center",justifyContent: 'start',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 12 }}>
+            {ArticleCount.map(() => 
+            (
+                <Grid item xs={3} sm={3} md={12/displaylength} alignItems="center" justifyContent = "center" height = {1/rows}>
+                    <ArticleCard/>
+                </Grid>
+            ))}
+        </Grid>
+    )
+}
+const imglink = "https://store.ymgal.games/archive/main/d5/d5fc5153d78c42d28f29c8bd2132b21d.webp"
 function Home() {
 
     useEffect(() => {
@@ -54,15 +93,7 @@ function Home() {
                                 <TopSwiper/>
                             </Grid>
                         </Grid>
-                        <Grid sx={{ width: '70%', height :'3%',alignItems: "center",justifyContent: 'space-around',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
-                            <Grid item xs={3} sm={3} md={3} alignItems="center" justifyContent = "center" height = {1}>
-                                <h2>精選牌組</h2>
-                            </Grid>
-                            <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
-                            </Grid>
-                            <Grid item xs={3} sm={3} md={3} alignItems="center" justifyContent = "center" textAlign="center" height = {1}>
-                            </Grid>
-                        </Grid>
+                        {displayTitle("精選牌組")}
                         <Grid sx={{ width: '70%', height :'6%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
                             <Grid item xs={3} sm={3} md={2} alignItems="center" justifyContent = "center" height = {1}>
                                 <DeckCard/>
@@ -80,7 +111,24 @@ function Home() {
                                 <DeckCard/>
                             </Grid>
                         </Grid>
-                        <Grid sx={{ width: '70%', height :'1%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
+                        <Grid sx={{ width: '70%', height :'40%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 1, md: 1 }} columns={{ xs: 12, sm: 12, md: 11 }}>
+                            <Grid item xs={3} sm={3} md={8} alignItems="center" justifyContent = "center" height = {1}>
+                                {displayTitle("攻略專欄")}
+                                <Grid sx={{ width: '100%', height :'20%',alignItems: "center",justifyContent: 'start',display:'flex'}} container spacing={{ xs: 1, md: 2 }} columns={{ xs: 10, sm: 10, md: 12 }}>
+                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
+                                        <ArticleCard/>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
+                                        <ArticleCard/>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
+                                        <ArticleCard/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={3} sm={3} md={3} alignItems="center" justifyContent = "center" height = {1}>
+                                {displaySideTitle("活動時程")}
+                            </Grid>
                         </Grid>
                         <Grid sx={{ width: '70%', height :'1%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
                         </Grid>
@@ -88,7 +136,7 @@ function Home() {
                         </Grid>
                         <Grid sx={{ width: '70%', height :'1%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
                         </Grid>
-                        <Grid sx={{ width: '70%', height :'76%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
+                        <Grid sx={{ width: '70%', height :'28%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
                         </Grid>
                     </Grid>
                 </Box>
