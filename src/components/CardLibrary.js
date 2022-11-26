@@ -70,7 +70,7 @@ function CardLibrary() {
                                     width: '100%',
                                     cursor: 'pointer',
                                     }}
-                                    src= {lin[page]}
+                                    src= {lin[page%2]}
                                     />
                                 </Item>
                             </Grid>
