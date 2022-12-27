@@ -3,6 +3,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { useEffect,useState } from "react";
+import { useNavigate ,useLocation,useParams} from "react-router-dom";
 import Paper from '@mui/material/Paper';
 import Foot from "../components/Foot";
 import TopSwiper from "../components/TopSwiper";
@@ -60,7 +61,6 @@ function Home() {
 
     useEffect(() => {
         // Just run the first time
-        //alert('render')
       }, [])
 	return (
     	<>

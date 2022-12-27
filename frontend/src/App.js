@@ -24,7 +24,8 @@ function App() {
 		<ThemeProvider theme={theme}>
 			<Routes>
 				<Route  path='/' element={<Home/>} /> 
-        <Route  path='/cards' element={<Cards/>} /> 
+        <Route  path='/cards' element={<Cards/>} />
+        <Route  path='/cards/:id' element={<Cards/>} />  
         <Route  path='/decks' element={<Decks/>} /> 
         <Route  path='/articles' element={<Articles/>} /> 
         <Route  path='/battles' element={<Battles/>} /> 
