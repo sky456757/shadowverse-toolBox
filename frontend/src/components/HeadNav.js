@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from "react-router-dom";
-const pages = ['cards', 'decks', 'articles', 'battles'];
+const pages = ['cards', 'decks', 'articles'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const pagesDict = {
   cards:{title:"卡牌圖鑑"},
