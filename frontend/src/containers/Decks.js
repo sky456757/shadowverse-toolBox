@@ -10,6 +10,7 @@ import DeckCard from "../components/DeckCard";
 import Pagination from '@mui/material/Pagination'
 import AddCardIcon from '@mui/icons-material/AddCard';
 import Stack from '@mui/material/Stack';
+import { useNavigate } from "react-router-dom";
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -30,9 +31,10 @@ const Item = styled(Paper)(({ theme }) => ({
           </Grid>
       </Grid>
   )
-  
+
 function Decks() {
     const [page, setPage] = useState(1);
+    const navigate = useNavigate();
     const handleChange = (event, value) => {
         setPage(value);
         //alert(value)
@@ -86,7 +88,7 @@ function Decks() {
 
                             </Grid>
                             <Stack spacing={2} direction="row">
-                                <Button onClick={() => {alert('clicked');}}  size="large" variant="outlined" color="success" endIcon={<AddCardIcon />}>分享牌組</Button>
+                                <Button onClick={()=> navigate('/decks/send')}  size="large" variant="outlined" color="success" endIcon={<AddCardIcon />}>分享牌組</Button>
                             </Stack>
                         </Grid>
                         <Grid sx={{ width: '67%', height :'20%',alignItems: "center",justifyContent: 'start',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>

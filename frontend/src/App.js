@@ -9,6 +9,7 @@ import { Routes ,Route } from 'react-router-dom';
 import { createTheme ,ThemeProvider} from '@mui/material/styles';
 import User from './containers/User';
 import SendArticle from './containers/SendArticle';
+import SendDeck from './containers/SendDeck';
 const theme = createTheme({
 
     palette: {
@@ -31,6 +32,7 @@ function App() {
         <Route  path='/cards' element={<Cards/>} />
         <Route  path='/cards/:id' element={<Cards/>} />  
         <Route  path='/decks' element={<Decks/>} /> 
+        <Route  path='/decks/send' element={<SendDeck/>} /> 
         <Route  path='/articles' element={<Articles/>} /> 
         <Route  path='/articles/send' element={<SendArticle/>} /> 
         <Route  path='/battles' element={<Battles/>} /> 
