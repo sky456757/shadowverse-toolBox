@@ -21,7 +21,7 @@ export default function ArticleCard() {
                 height="100%"
                 width = "100%"
                 image= {imglink}
-                alt="img test"
+                alt="cover img"
               />
             </Grid>
             <Grid item xs={3} sm={3} md={10} alignContent="start" alignItems="start" justifyContent = "start" height = {1} margin = {0} padding = {0}>

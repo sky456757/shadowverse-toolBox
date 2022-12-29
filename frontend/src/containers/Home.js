@@ -9,12 +9,13 @@ import Foot from "../components/Foot";
 import TopSwiper from "../components/TopSwiper";
 import DeckCard from "../components/DeckCard";
 import { Button, Divider } from "@mui/material";
+import Stack from '@mui/material/Stack';
 import ArticleCard from "../components/ArticleCard";
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(1),
-    textAlign: 'center',
+    textAlign: 'start',
     color: theme.palette.text.secondary,
   }));
 
@@ -72,7 +73,7 @@ function Home() {
                 justifyContent: 'center',
                 alignContent: "center",
                 width: '100%',
-                height: '300vh',
+                height: '150vh',
                 margin: 0,
             }}
             >
@@ -88,13 +89,13 @@ function Home() {
                 }}
                 >
                     <Grid sx={{ width: '100%', height :'100%',alignContent: "start",alignItems: "start",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
-                        <Grid sx={{ width: '100%', height : 0.1,alignItems: "center",justifyContent: 'center',display: { xs: 'none', md: 'flex' }}} container columns={{ xs: 12, sm: 12, md: 12 }}>
+                        <Grid sx={{ width: '100%', height : 0.2,alignItems: "center",justifyContent: 'center',display: { xs: 'none', md: 'flex' }}} container columns={{ xs: 12, sm: 12, md: 12 }}>
                             <Grid item xs={12} sm={12} md={12}  height={1} width = '100%'alignItems="center" justifyContent = "center">
                                 <TopSwiper/>
                             </Grid>
                         </Grid>
                         {displayTitle("精選牌組")}
-                        <Grid sx={{ width: '70%', height :'6%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
+                        <Grid sx={{ width: '70%', height :'12%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
                             <Grid item xs={3} sm={3} md={2} alignItems="center" justifyContent = "center" height = {1}>
                                 <DeckCard/>
                             </Grid>
@@ -111,10 +112,25 @@ function Home() {
                                 <DeckCard/>
                             </Grid>
                         </Grid>
-                        <Grid sx={{ width: '70%', height :'40%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 1, md: 1 }} columns={{ xs: 12, sm: 12, md: 11 }}>
+                        <Grid sx={{ width: '70%', height :'77%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 1, md: 1 }} columns={{ xs: 12, sm: 12, md: 11 }}>
                             <Grid item xs={3} sm={3} md={8} alignItems="center" justifyContent = "center" height = {1}>
                                 {displayTitle("攻略專欄")}
                                 <Grid sx={{ width: '100%', height :'20%',alignItems: "center",justifyContent: 'start',display:'flex'}} container spacing={{ xs: 1, md: 2 }} columns={{ xs: 10, sm: 10, md: 12 }}>
+                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
+                                        <ArticleCard/>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
+                                        <ArticleCard/>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
+                                        <ArticleCard/>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
+                                        <ArticleCard/>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
+                                        <ArticleCard/>
+                                    </Grid>
                                     <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
                                         <ArticleCard/>
                                     </Grid>
@@ -128,16 +144,24 @@ function Home() {
                             </Grid>
                             <Grid item xs={3} sm={3} md={3} alignItems="center" justifyContent = "center" height = {1}>
                                 {displaySideTitle("活動時程")}
+                                <Stack spacing={2}>
+                                    <Box></Box>
+                                    <Item>
+                                        <Box>活動一</Box> 
+                                        <Box textAlign="end">剩餘 00:00</Box>
+                                    </Item>
+                                    <Item>
+                                        <Box>活動二</Box> 
+                                        <Box textAlign="end">剩餘 00:00</Box>
+                                    </Item>
+                                    <Item>
+                                        <Box>活動三</Box> 
+                                        <Box textAlign="end">剩餘 00:00</Box>
+                                    </Item>
+                                </Stack>
                             </Grid>
                         </Grid>
-                        <Grid sx={{ width: '70%', height :'1%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
-                        </Grid>
-                        <Grid sx={{ width: '70%', height :'1%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
-                        </Grid>
-                        <Grid sx={{ width: '70%', height :'1%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
-                        </Grid>
-                        <Grid sx={{ width: '70%', height :'28%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
-                        </Grid>
+        
                     </Grid>
                 </Box>
             </Box>

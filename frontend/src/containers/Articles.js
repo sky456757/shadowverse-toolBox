@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Pagination from '@mui/material/Pagination'
 import ArticleCard from "../components/ArticleCardLong";
+import { useNavigate } from "react-router-dom";
 import AddCardIcon from '@mui/icons-material/AddCard';
 import Stack from '@mui/material/Stack';
 import Foot from "../components/Foot";
@@ -33,6 +34,7 @@ const Item = styled(Paper)(({ theme }) => ({
   )
 function Articles() {
     const [page, setPage] = useState(1);
+    const navigate = useNavigate();
     const handleChange = (event, value) => {
         setPage(value);
         //alert(value)
@@ -78,7 +80,7 @@ function Articles() {
 
                             </Grid>
                             <Stack spacing={2} direction="row">
-                                <Button disabled onClick={() => {alert('clicked');}}  size="large" variant="outlined" color="success" endIcon={<AddCardIcon />}>撰寫文章</Button>
+                                <Button onClick={()=> navigate('/articles/send')}  size="large" variant="outlined" color="success" endIcon={<AddCardIcon />}>撰寫文章</Button>
                             </Stack>
                         </Grid>
                         <Grid sx={{ width: '70%', height :'20%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>

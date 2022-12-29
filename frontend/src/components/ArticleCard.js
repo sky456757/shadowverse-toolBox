@@ -21,7 +21,7 @@ export default function ArticleCard() {
                 height="100%"
                 width = "100%"
                 image= {imglink}
-                alt="green iguana"
+                alt="cover img"
               />
             </Grid>
             <Grid item xs={3} sm={3} md={8} alignItems="center" justifyContent = "center" height = {0.5}>
