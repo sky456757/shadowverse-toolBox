@@ -13,16 +13,17 @@ const inf = "xxx 分享 xx/xx/xx"
 
 export default function DeckCard() {
   return (
-    <Card sx={{ maxWidth: 345 ,height:"100%" ,cursor:"pointer"}}>
+    <Card sx={{ maxWidth: 345 ,height:"15vh" ,cursor:"pointer"}}>
       <CardContent>
-        <Typography gutterBottom variant="h6" component="div">
+        <Typography gutterBottom variant="body1" component="div">
           {title}
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          {content}
         </Typography>
         <Divider/>
         <Typography variant="body2" color="text.secondary">
+          {content}
+        </Typography>
+        <Divider/>
+        <Typography variant="body3" color="text.secondary">
           {inf}
         </Typography>
       </CardContent>

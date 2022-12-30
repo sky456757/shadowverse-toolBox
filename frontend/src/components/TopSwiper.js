@@ -11,7 +11,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 //import 'swiper/css/autoplay';
 //SwiperCore.use([Autoplay]);
-const imgLink = ["url(https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/01.png)","url(https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/02.png)","url(https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/03.png)"]
+const imgLink = ["url(https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/01.png)",
+                 "url(https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/02.png)",
+                 "url(https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/03.png)"]
 
 const Sw = styled(Swiper)(({ theme }) => ({
   padding: theme.spacing(1),

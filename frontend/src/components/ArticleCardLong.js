@@ -26,15 +26,18 @@ export default function ArticleCard() {
             </Grid>
             <Grid item xs={3} sm={3} md={10} alignContent="start" alignItems="start" justifyContent = "start" height = {1} margin = {0} padding = {0}>
               <Grid sx={{ width: '100%', height :'100%',alignItems: "start",justifyContent: 'start',display:'flex',margin: 0 ,padding: 0}} container spacing={{ xs: 1, md: 1 }} columns={{ xs: 10, sm: 10, md: 12 }}>
+                <Grid item xs={3} sm={3} md={12} alignContent="flex-start" alignItems="flex-start" justifyContent = "start" height = {0.1} margin = {0} padding = {0} >
+
+                </Grid>
                 <Grid item xs={3} sm={3} md={12} alignContent="flex-start" alignItems="flex-start" justifyContent = "start" height = {0.4} margin = {0} padding = {0} >
-                  <div>
-                    <h4>{title}</h4>
-                  </div>
+                  <Typography gutterBottom variant="h6" component="div">
+                    {title}
+                  </Typography>
                 </Grid>
                 <Grid item xs={3} sm={3} md={12} alignContent="flex-start" alignItems="flex-start" justifyContent = "start" height = {0.6} margin = {0} padding = {0} >
-                  <div>
+                  <Typography gutterBottom variant="body2" component="div">
                     {content}
-                  </div>
+                  </Typography>
                 </Grid>
                 
               </Grid>

@@ -129,8 +129,8 @@ export default function DeckBuild() {
       <Divider />
       <List
         sx={{
-          width: 400,
-          height: 700,
+          width: "26vw",
+          height: "65vh",
           bgcolor: 'background.paper',
           overflow: 'auto',
         }}

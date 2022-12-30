@@ -5,13 +5,11 @@ import Box from '@mui/material/Box';
 import { useEffect,useState } from "react";
 import { useNavigate ,useLocation,useParams} from "react-router-dom";
 import Paper from '@mui/material/Paper';
-import Foot from "../components/Foot";
-import TopSwiper from "../components/TopSwiper";
-import DeckCard from "../components/DeckCard";
 import { Button, Divider } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import ArticleCard from "../components/ArticleCard";
 import UserTab from "../components/UserTab";
+import Typography from '@mui/material/Typography';
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -58,17 +56,24 @@ function User() {
                                 <Stack spacing={2}>
                                     <Box></Box>
                                     <Item>
-                                        <Box component="h2">用戶名</Box> 
-                                        <Box >Rank: Master</Box>
-                                        <Box component="p">你的自我介紹</Box>
+                                        <Stack spacing={1}>
+                                            <Typography variant="h5" >用戶名</Typography>
+                                            <Typography variant="body1" >Rank: Master</Typography>
+                                            <Typography variant="body2" >你的自我介紹</Typography>
+                                        </Stack>
+                                        
                                     </Item>
                                     <Item>
-                                        <Box component="h3">撰寫了 x 篇文章</Box> 
-                                        <Box component="h3">分享了 x 個牌組</Box>
+                                        <Stack spacing={1}>
+                                            <Typography variant="h6" >撰寫了 x 篇文章</Typography>
+                                            <Typography variant="h6" >分享了 x 個牌組</Typography>
+                                        </Stack>
                                     </Item>
                                     <Item>
-                                        <Box>UID: 001</Box> 
-                                        <Box textAlign="end">xx/xx/xx 加入</Box>
+                                        <Stack spacing={1}>
+                                            <Typography variant="body1" >UID: 001</Typography>
+                                            <Typography variant="body2" textAlign="end">xx/xx/xx 加入</Typography>
+                                        </Stack>
                                     </Item>
                                 </Stack>
                             </Grid>

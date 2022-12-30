@@ -11,6 +11,8 @@ import DeckCard from "../components/DeckCard";
 import { Button, Divider } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import ArticleCard from "../components/ArticleCard";
+import Typography from '@mui/material/Typography';
+
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -23,7 +25,7 @@ const displayTitle = (T) =>
 (
     <Grid sx={{ width: '70%', height :'9vh',alignItems: "center",justifyContent: 'space-around',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
         <Grid item xs={3} sm={3} md={3} alignItems="center" justifyContent = "center" height = {1}>
-            <h2>{T}</h2>
+            <Typography variant="h5">{T}</Typography>
         </Grid>
         <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
         </Grid>
@@ -35,28 +37,12 @@ const displaySideTitle = (T) =>
 (
     <Grid sx={{ width: '100%', height :'9vh',alignItems: "center",justifyContent: 'start',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
         <Grid item xs={3} sm={3} md={12} alignItems="center" justifyContent = "start" height = {1}>
-            <h2>{T}</h2>
+            <Typography variant="h5">{T}</Typography>
         </Grid>
     </Grid>
 )
 
-const displayArticleCards = (num) =>
-{
-    const ArticleCount = Array(num).fill(0)
-    const displaylength = 3
-    const rows = Math.ceil(ArticleCount.length/displaylength)
-    const h = String(rows*8)+"%"
-    return(
-        <Grid height = {h} sx={{ width: '70%',alignItems: "center",justifyContent: 'start',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 12 }}>
-            {ArticleCount.map(() => 
-            (
-                <Grid item xs={3} sm={3} md={12/displaylength} alignItems="center" justifyContent = "center" height = {1/rows}>
-                    <ArticleCard/>
-                </Grid>
-            ))}
-        </Grid>
-    )
-}
+
 const imglink = "https://store.ymgal.games/archive/main/d5/d5fc5153d78c42d28f29c8bd2132b21d.webp"
 function Home() {
 
