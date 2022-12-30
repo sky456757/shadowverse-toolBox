@@ -9,7 +9,9 @@ import { Button, Divider } from "@mui/material";
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
-import { createTheme ,ThemeProvider} from '@mui/material/styles';
+import { createTheme ,ThemeProvider, responsiveFontSizes} from '@mui/material/styles';
+
+import Typography from '@mui/material/Typography';
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -19,7 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
-const theme = createTheme({
+let theme = createTheme({
 
     palette: {
       primary: {
@@ -32,6 +34,8 @@ const theme = createTheme({
       },
     },
   });
+theme = responsiveFontSizes(theme);
+
 const imglink = "https://store.ymgal.games/archive/main/d5/d5fc5153d78c42d28f29c8bd2132b21d.webp"
 function Article() {
 
@@ -41,6 +45,18 @@ function Article() {
 	return (
     	<>  
         <ThemeProvider theme={theme}>
+            <HeadNav color = "secondary"></HeadNav>
+            <Box
+            sx = {{
+                backgroundColor: '#F5F5F5',
+                display: "flex",
+                justifyContent: 'center',
+                alignContent: "center",
+                width: '100%',
+                height: '2vh',
+     
+            }}
+            ></Box>
             <Box
             sx = {{
                 backgroundColor: '#F5F5F5',
@@ -49,7 +65,7 @@ function Article() {
                 alignContent: "center",
                 width: '100%',
                 height: '100vh',
-                margin: 0,
+     
             }}
             >
                 <Box
@@ -68,8 +84,15 @@ function Article() {
                             <Item>
                                 <Stack spacing={2}>
                                     <Box></Box>
-                                    <Box textAlign="center" color="" component="h1">文章標題</Box>
-                                    <Box>文章內容 文章內容 文章內容</Box>
+                                    <Box></Box>
+                                    <Typography gutterBottom textAlign="center" variant="h3" color="black" component="div">
+                                        文章標題
+                                    </Typography>
+                                    <Divider></Divider>
+                                    <Typography gutterBottom  variant="body1" color="black" component="div">
+                                        文章內容 文章內容 文章內容
+                                    </Typography>
+
                                     <Box></Box>
                                 </Stack> 
                                 <Grid sx={{ width: '100%', height :'10vh',alignItems: "center",justifyContent: 'end',display:'flex'}} columns={{ xs: 12, sm: 12, md: 12 }}>

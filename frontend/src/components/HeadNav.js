@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { createTheme ,ThemeProvider, responsiveFontSizes} from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 const pages = ['cards', 'decks', 'articles'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -21,6 +22,20 @@ const pagesDict = {
   articles:{title:"精選文章"},
   battles:{title:"對局分享"}
 }
+let theme = createTheme({
+
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: '#fff',
+      light: "#8ab4c0",
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: '#F5F5F5',
+    },
+  },
+});
 function HeadNav() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -83,6 +98,7 @@ function HeadNav() {
     </Box>
   )
   return (
+    <ThemeProvider theme={theme}>
     <AppBar position="static" >
       <Container maxWidth="xxl">
         <Toolbar disableGutters>
@@ -178,6 +194,7 @@ function HeadNav() {
         </Toolbar>
       </Container>
     </AppBar>
+    </ThemeProvider>
   );
 }
 export default HeadNav;

@@ -80,7 +80,7 @@ function Articles() {
 
                             </Grid>
                             <Stack spacing={2} direction="row">
-                                <Button onClick={()=> navigate('/articles/send')}  size="large" variant="outlined" color="success" endIcon={<AddCardIcon />}>撰寫文章</Button>
+                                <Button onClick={()=> navigate('/articles/send')}   variant="outlined" color="success" endIcon={<AddCardIcon />}>撰寫文章</Button>
                             </Stack>
                         </Grid>
                         <Grid sx={{ width: '70%', height :'20%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
