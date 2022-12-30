@@ -11,7 +11,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 //import 'swiper/css/autoplay';
 //SwiperCore.use([Autoplay]);
-const imgLink = "url(https://tva1.sinaimg.cn/large/ec678006gy1h70b8un5r4j21hc0u0x6p.jpg)"
+const imgLink = ["url(https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/01.png)","url(https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/02.png)","url(https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/03.png)"]
+
 const Sw = styled(Swiper)(({ theme }) => ({
   padding: theme.spacing(1),
   textAlign: 'center',
@@ -53,9 +54,9 @@ const TopSwiper =  () => {
         "--swiper-pagination-color": "grey",
       }}
     >
-      <Sl link = {imgLink}><h1>置頂文章 3</h1></Sl>
-      <Sl link = {imgLink} onClick={() => alert('swiper')}><h1>置頂文章 1</h1></Sl>
-      <Sl link = {imgLink} onClick={()=> navigate('/cards')}><h1>置頂文章 2</h1></Sl>
+      <Sl link = {imgLink[0]}><h1>置頂文章 3</h1></Sl>
+      <Sl link = {imgLink[1]} onClick={() => alert('swiper')}><h1>置頂文章 1</h1></Sl>
+      <Sl link = {imgLink[2]} onClick={()=> navigate('/cards')}><h1>置頂文章 2</h1></Sl>
     </Sw>
   );
 };

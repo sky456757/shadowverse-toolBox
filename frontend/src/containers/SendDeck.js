@@ -5,11 +5,7 @@ import Box from '@mui/material/Box';
 import { useEffect,useState } from "react";
 import { useNavigate ,useLocation,useParams} from "react-router-dom";
 import Paper from '@mui/material/Paper';
-import Foot from "../components/Foot";
-import TopSwiper from "../components/TopSwiper";
-import DeckCard from "../components/DeckCard";
 import { Button, Divider } from "@mui/material";
-import TextareaAutosize from '@mui/base/TextareaAutosize';
 import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
 import { createTheme ,ThemeProvider} from '@mui/material/styles';
@@ -38,7 +34,7 @@ const theme = createTheme({
   });
 const imglink = "https://store.ymgal.games/archive/main/d5/d5fc5153d78c42d28f29c8bd2132b21d.webp"
 function SendDeck() {
-
+    //const [amount,setAmount] = useState(0);
     useEffect(() => {
         // Just run the first time
       }, [])
@@ -76,14 +72,7 @@ function SendDeck() {
                                     <DeckBuild />
                                     <Box></Box>
                                 </Stack> 
-                                <Grid sx={{ width: '100%', height :'10vh',alignItems: "center",justifyContent: 'end',display:'flex'}} columns={{ xs: 12, sm: 12, md: 12 }}>
-                                    <Grid item xs={3} sm={3} md={10} alignItems="center" justifyContent = "start" height = {1}>
-                                        
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={2} alignItems="center" display = "flex"justifyContent = "end" height = {1}>
-                                        <Button onClick={() => {alert('clicked');}}  variant="outlined" color="primary" endIcon={<SendIcon />}>送出</Button>
-                                    </Grid>
-                                </Grid>
+                            
                             </Item>
                             
                         </Grid>

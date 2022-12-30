@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { Divider } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 
-const imglink = "https://store.ymgal.games/archive/main/d5/d5fc5153d78c42d28f29c8bd2132b21d.webp"
+const imglink = "https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/05.png"
 const title = "70%勝率GM，指定棄牌龍"
 const content = "文章簡介文章簡介文章簡介文章簡介文章簡介文章簡介文章簡介文章簡介文章簡介"
 export default function ArticleCard() {

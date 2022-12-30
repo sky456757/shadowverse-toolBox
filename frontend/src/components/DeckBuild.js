@@ -9,6 +9,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import Box from '@mui/material/Box';
+import SendIcon from '@mui/icons-material/Send';
 import { Stack } from '@mui/system';
 
 function not(a, b) {
@@ -27,7 +29,6 @@ export default function DeckBuild() {
   const [checked, setChecked] = React.useState([]);
   const [left, setLeft] = React.useState([{cardName:"0" , amount:1}, {cardName:"0" , amount:1}, {cardName:"0" , amount:1}, {cardName:"0" , amount:1}]);
   const [right, setRight] = React.useState([]);
-  const [list,setList] = React.useState('');
   const [amount,setAmount] = React.useState(0);
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
@@ -79,9 +80,24 @@ export default function DeckBuild() {
     let newValue = value
     //alert(1)
     if(dir === 1 && newValue.amount < 3)
-        newValue.amount = newValue.amount+dir
+        if(amount < 40)
+        {
+          newValue.amount = newValue.amount+dir
+          if(items == right)
+          {
+            setAmount(amount+1)
+          }
+        }
+         
     if(dir === -1 && newValue.amount > 1)
-        newValue.amount = newValue.amount+dir
+    {
+      newValue.amount = newValue.amount+dir
+      if(items == right)
+        {
+            setAmount(amount-1)
+        }
+    }
+        
     //alert(newValue.amount)
     items[items.indexOf(value)] = newValue
     //alert(items[0])
@@ -154,39 +170,50 @@ export default function DeckBuild() {
       </List>
     </Card>
   );
-  const generateList = () =>
-  {
-    
-    setList()
-  }
+
   return (
-    <Grid container spacing={2} justifyContent="center" alignItems="center">
-      <Grid item>{customList('Choices', left,setLeft)}</Grid>
-      <Grid item>
-        <Grid container direction="column" alignItems="center">
-          <Button
-            sx={{ my: 0.5 }}
-            variant="outlined"
-            size="small"
-            onClick={handleCheckedRight}
-            disabled={leftChecked.length === 0}
-            aria-label="move selected right"
-          >
-            &gt;
-          </Button>
-          <Button
-            sx={{ my: 0.5 }}
-            variant="outlined"
-            size="small"
-            onClick={handleCheckedLeft}
-            disabled={rightChecked.length === 0}
-            aria-label="move selected left"
-          >
-            &lt;
-          </Button>
+    <Stack>
+      {amount == 40 ? <Box component="h1" textAlign="center" color="green">{amount+"/40"}</Box> : <Box component="h1" textAlign="center">{amount+"/40"}</Box>}
+      <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid item>{customList('所有卡片', left,setLeft)}</Grid>
+        <Grid item>
+          <Grid container direction="column" alignItems="center">
+            <Button
+              sx={{ my: 0.5 }}
+              variant="outlined"
+              size="small"
+              onClick={handleCheckedRight}
+              disabled={leftChecked.length === 0}
+              aria-label="move selected right"
+            >
+              &gt;
+            </Button>
+            <Button
+              sx={{ my: 0.5 }}
+              variant="outlined"
+              size="small"
+              onClick={handleCheckedLeft}
+              disabled={rightChecked.length === 0}
+              aria-label="move selected left"
+            >
+              &lt;
+            </Button>
+          </Grid>
         </Grid>
+        <Grid item>{customList('已選卡片', right,setRight)}</Grid>
       </Grid>
-      <Grid item>{customList('Chosen', right,setRight)}</Grid>
-    </Grid>
+      <Grid sx={{ width: '100%', height :'7vh',alignItems: "center",justifyContent: 'end',display:'flex'}} columns={{ xs: 12, sm: 12, md: 12 }}>
+          <Grid item xs={3} sm={3} md={10} alignItems="center" justifyContent = "start" height = {1}>
+                                        
+          </Grid>
+          <Grid item xs={3} sm={3} md={2} alignItems="center" display = "flex"justifyContent = "end" height = {1}>
+              {amount == 40 ? 
+               <Button onClick={() => {alert('clicked');}}  variant="outlined" color="primary" endIcon={<SendIcon />}>送出</Button>
+               : 
+               <Button disabled variant="outlined" color="primary" endIcon={<SendIcon />}>送出</Button>} 
+             
+          </Grid>
+      </Grid>
+    </Stack>
   );
 }

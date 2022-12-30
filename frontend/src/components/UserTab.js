@@ -68,7 +68,14 @@ function a11yProps(index) {
 
 export default function UserTab() {
   const [value, setValue] = React.useState(0);
-
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = (ind) => 
+  {
+      setOpen(true);
+      
+      //alert(ind);
+  }
+  const handleClose = () => setOpen(false);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -85,9 +92,9 @@ export default function UserTab() {
       </Box>
       <TabPanel value={value} index={0}>
         <Stack spacing={2}>
+          <Button color="secondary"onClick = {() => handleOpen()}> 
             <DeckCard/>
-            <DeckCard/>
-            <DeckCard/>
+          </Button>                  
         </Stack> 
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -100,7 +107,7 @@ export default function UserTab() {
       <TabPanel value={value} index={2}>
         <Stack spacing={2}>
             <Box>用戶名稱: 123</Box>
-            <Box>自我介紹: 123</Box>
+            <Box>自我介紹:</Box>
             <TextareaAutosize minRows={3} />
             <Box></Box>
         </Stack> 
