@@ -1,7 +1,7 @@
 import Activity from '../models/Activity'
 
 // Init Activity
-exports.initActivity = async(req, res) => {
+exports.InitActivity = async(req, res) => {
     try{
         const target = await Activity.find({});
         console.log(target)

@@ -1,7 +1,7 @@
 import Article from '../models/Article'
 
 // Init card
-exports.initArticle = async(req, res) => {
+exports.InitArticle = async(req, res) => {
     try{
         const target = await Article.find({}).select('Artical_name Content Image');
         console.log(target)

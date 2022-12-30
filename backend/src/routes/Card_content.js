@@ -1,9 +1,10 @@
 import Card_content from '../models/Card_content'
 
 // Get only _id, cardname and image for all cards
-exports.initCard = async(req, res) => {
+exports.InitCard = async(req, res) => {
     try{
-        const target = await Card_content.find({}).select('Card_name Image');
+        const target = await Card_content.find({});
+        //.select('Card_name Image');
         console.log(target)
         res.status(200).send({ message: 'success', contents: target });
     }catch(err){

@@ -15,10 +15,15 @@ function main(app) {
   // about articles
   app.get('/api/initArticle', wrap(ArticleRoute.InitArticle))
   app.get('/api/getArticle', wrap(ArticleRoute.GetArticle))
-  // about decks
+  // about users
   app.get('/api/initUserDeck', wrap(DeckRoute.InitUserDeck))
   app.get('/api/DeckDetail', wrap(DeckRoute.DeckDetail))
-  // about users
+  // insert user
+
+  // insert articles
+
+  // insert deck
+  
 }
 
 export default main
