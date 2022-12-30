@@ -85,10 +85,18 @@ const getDeckDetailbyID = async () => {
   console.log(contents);
 };
 
-// add user
 
-// add user deck
 
+// insert
+const storeComment = async () => {
+  await instance.post("createComment/", {
+    // TODO Part III-3-b: store the comment to the DB
+    restaurantId: restaurantId,
+    name: name,
+    rating: rating,
+    content: content,
+  });
+};
 
 function App() {
   getCardbyID();
