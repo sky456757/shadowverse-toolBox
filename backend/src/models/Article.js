@@ -16,6 +16,5 @@ const ArticleSchema = Schema({
 })
 
 const Model = mongoose.model('Article', ArticleSchema)
-console.log(Model)
 
 export default Model

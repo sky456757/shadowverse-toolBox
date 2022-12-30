@@ -1,38 +1,30 @@
-import logo from './logo.svg';
-//import './App.css';
-import Home from './containers/Home';
-import Articles from './containers/Articles';
-import Battles from './containers/Battles';
-import Decks from './containers/Decks';
-import Cards from './containers/Cards';
-import { Routes ,Route } from 'react-router-dom';
-import { createTheme ,ThemeProvider} from '@mui/material/styles';
-const theme = createTheme({
-    palette: {
-      primary: {
-        // Purple and green play nicely together.
-        main: '#fff',
-      },
-      secondary: {
-        // This is green.A700 as hex.
-        main: '#F5F5F5',
-      },
-    },
-  });
-function App() {
-	return (
-		<ThemeProvider theme={theme}>
-			<Routes>
-				<Route  path='/' element={<Home/>} /> 
-        <Route  path='/cards' element={<Cards/>} />
-        <Route  path='/cards/:id' element={<Cards/>} />  
-        <Route  path='/decks' element={<Decks/>} /> 
-        <Route  path='/articles' element={<Articles/>} /> 
-        <Route  path='/battles' element={<Battles/>} /> 
-			</Routes>
-		</ThemeProvider>
+import axios from "axios";
+const instance = axios.create({
+  baseURL: "http://localhost:4000/api",
+});
 
-  	);
+const getComments = async () => {
+  const cost = 0
+  const craft = "復仇者"
+  const rare = "白銀"
+  const data = await instance.get("/findCard", {
+    params: { cost: cost, craft: craft, rare: rare },
+  });
+  console.log(data);
+};
+
+// const getComments = async () => {
+//   // const cost = 0
+//   // const craft = "復仇者"
+//   // const rare = "白銀"
+//   const data = await instance.get("/initCard", {
+//     // params: { cost: cost, craft: craft, rare: rare },
+//   });
+//   console.log(data);
+// };
+
+function App() {
+  getComments();
 }
 
 export default App;

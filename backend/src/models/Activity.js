@@ -14,6 +14,5 @@ const ActivitySchema = Schema({
 })
 
 const Model = mongoose.model('Activity', ActivitySchema)
-console.log(Model)
 
 export default Model

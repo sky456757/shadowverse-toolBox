@@ -15,6 +15,5 @@ const DeckSchema = Schema({
 })
 
 const Model = mongoose.model('Deck', DeckSchema)
-console.log(Model)
 
 export default Model

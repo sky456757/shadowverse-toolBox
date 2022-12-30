@@ -12,6 +12,5 @@ const DeckSchema = Schema({
 })
 
 const Model = mongoose.model('Cards_in_deck', DeckSchema)
-console.log(Model)
 
 export default Model

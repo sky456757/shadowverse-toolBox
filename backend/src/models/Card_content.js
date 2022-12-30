@@ -19,6 +19,5 @@ const ContentSchema = Schema({
 })
 
 const Model = mongoose.model('Card_content', ContentSchema)
-console.log(Model)
 
 export default Model

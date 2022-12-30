@@ -5,7 +5,6 @@ exports.initCard = async(req, res) => {
     try{
         const target = await Card_content.find({}).select('Card_name Image');
         console.log(target)
-        //console.log(target)
         res.status(200).send({ message: 'success', contents: target });
     }catch(err){
         res.status(403).send({ message: 'error', contents: []})
@@ -20,7 +19,6 @@ exports.FindCard = async(req, res) => {
     try{
         const target = await Card_content.find({Cost: cost, Craft: craft, Rare:rare}).select('Card_name Image');
         console.log(target)
-        //console.log(target)
         res.status(200).send({ message: 'success', contents: target });
     }catch(err){
         res.status(403).send({ message: 'error', contents: []})
@@ -33,7 +31,6 @@ exports.GetCard = async(req, res) => {
     try{
         const target = await Card_content.find({_id: id});
         console.log(target)
-        //console.log(target)
         res.status(200).send({ message: 'success', contents: target });
     }catch(err){
         res.status(403).send({ message: 'error', contents: []})

@@ -18,6 +18,7 @@ function main(app) {
   // about decks
   app.get('/api/initUserDeck', wrap(DeckRoute.InitUserDeck))
   app.get('/api/DeckDetail', wrap(DeckRoute.DeckDetail))
+  // about users
 }
 
 export default main
