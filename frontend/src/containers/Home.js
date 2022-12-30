@@ -81,6 +81,7 @@ function Home() {
                             </Grid>
                         </Grid>
                         {displayTitle("精選牌組")}
+                        
                         <Grid sx={{ width: '70%', height :'12%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
                             <Grid item xs={3} sm={3} md={2} alignItems="center" justifyContent = "center" height = {1}>
                                 <DeckCard/>

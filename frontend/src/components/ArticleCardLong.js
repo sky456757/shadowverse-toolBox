@@ -10,7 +10,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 const imglink = "https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/05.png"
 const title = "70%勝率GM，指定棄牌龍"
-const content = "文章簡介文章簡介文章簡介文章簡介文章簡介文章簡介文章簡介文章簡介文章簡介"
+const content = "文章簡介文章簡介文章簡介文章簡介文章簡介..."
 export default function ArticleCard() {
   return (
     <Card sx={{height:"100%" ,width:"100%",cursor:"pointer",display:'flex',alignItems: "start",justifyContent: 'center' ,margin: 0 ,padding: 0}}>
