@@ -3,7 +3,7 @@ import Article from '../models/Article'
 // Init card
 exports.InitArticle = async(req, res) => {
     try{
-        const target = await Article.find({}).select('Artical_name Content Image');
+        const target = await Article.find({}).select('_id Artical_name Content image');
         console.log(target)
         //console.log(target)
         res.status(200).send({ message: 'success', contents: target });

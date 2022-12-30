@@ -17,15 +17,15 @@ function main(app) {
   app.get('/api/initArticle', wrap(ArticleRoute.InitArticle))
   app.get('/api/getArticle', wrap(ArticleRoute.GetArticle))
   // about deck
-  app.get('/api/initUserDeck', wrap(DeckRoute.InitUserDeck))
-  app.get('/api/DeckDetail', wrap(DeckRoute.DeckDetail))
+  app.get('/api/initDeck', wrap(DeckRoute.InitDeck))
+  app.get('/api/deckDetail', wrap(DeckRoute.DeckDetail))
   // about user
     // insert user
   app.post('/api/insertUser', wrap(UserRoute.insertUser))
     // get user
   app.get('/api/getUser', wrap(UserRoute.GetUser))
     // insert articles
-  app.post('/api/insertArticle', wrap(UserRoute.))
+  app.post('/api/insertArticle', wrap(UserRoute.insertArticle))
     // insert deck
   app.post('/api/insertDeck', wrap(UserRoute.insertDeck))
     // get user articles

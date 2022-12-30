@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const ContentSchema = Schema({
-    _id: {type: Number, require: true},
+    // _id: { type: Number, required: false  },
     Card_name: { type: String, required: true },
     Effect: [{ type: String}],
     Rare: {type: String, require: true},

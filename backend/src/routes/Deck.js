@@ -1,7 +1,7 @@
 import Deck from '../models/Deck'
 import UserDeck from '../models/UserDeck'
 
-exports.InitUserDeck = async(req, res) => {
+exports.InitDeck = async(req, res) => {
     try{
         const target = await UserDeck.find({}).select('User_ID info name');
         console.log(target)
