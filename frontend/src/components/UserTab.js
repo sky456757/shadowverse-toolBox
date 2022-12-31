@@ -29,7 +29,7 @@ const theme = createTheme({
   });
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
+  
   return (
     <div
       role="tabpanel"
@@ -66,15 +66,17 @@ function a11yProps(index) {
   };
 }
 
-export default function UserTab() {
+export default function UserTab({info,setInfo}) {
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  const [tempInfo, setTempInfo] = React.useState(info);
   const handleOpen = (ind) => 
   {
       setOpen(true);
       
       //alert(ind);
   }
+  
   const handleClose = () => setOpen(false);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -108,7 +110,7 @@ export default function UserTab() {
         <Stack spacing={2}>
             <Box>用戶名稱: 123</Box>
             <Box>自我介紹:</Box>
-            <TextareaAutosize minRows={3} />
+            <TextareaAutosize value = {tempInfo} minRows={3} onChange={(e) => {setTempInfo(e.currentTarget.value);}}/>
             <Box></Box>
         </Stack> 
         <Grid sx={{ width: '100%', height :'5vh',alignItems: "center",justifyContent: 'end',display:'flex'}} columns={{ xs: 12, sm: 12, md: 12 }}>
@@ -116,7 +118,7 @@ export default function UserTab() {
                 
             </Grid>
             <Grid item xs={3} sm={3} md={2} alignItems="center" display = "flex"justifyContent = "end" height = {1}>
-                <Button onClick={() => {alert('clicked');}}  variant="outlined" color="primary" endIcon={<SendIcon />}>修改</Button>
+                <Button onClick={() => {setInfo(tempInfo);}}  variant="outlined" color="primary" endIcon={<SendIcon />}>修改</Button>
             </Grid>
         </Grid>
        

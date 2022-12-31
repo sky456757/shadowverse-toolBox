@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import AddCardIcon from '@mui/icons-material/AddCard';
 import Stack from '@mui/material/Stack';
 import Foot from "../components/Foot";
+import Typography from '@mui/material/Typography';
+
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -26,7 +28,9 @@ const Item = styled(Paper)(({ theme }) => ({
           
           </Grid>
           <Grid item xs={3} sm={3} md={4} alignItems="center" justifyContent = "center" textAlign="center" height = {1}>
-                <h1>{T}</h1>
+            <Typography variant="h4" color="black">
+                {T}
+            </Typography>
           </Grid>
           <Grid item xs={3} sm={3} md={4} alignItems="center" justifyContent = "center" textAlign="center" height = {1}>
           </Grid>

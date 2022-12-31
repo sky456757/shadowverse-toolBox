@@ -21,7 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const imglink = "https://store.ymgal.games/archive/main/d5/d5fc5153d78c42d28f29c8bd2132b21d.webp"
 function User() {
-
+    const [info, setInfo] = useState("測試");
     useEffect(() => {
         // Just run the first time
       }, [])
@@ -59,7 +59,7 @@ function User() {
                                         <Stack spacing={1}>
                                             <Typography variant="h5" >用戶名</Typography>
                                             <Typography variant="body1" >Rank: Master</Typography>
-                                            <Typography variant="body2" >你的自我介紹</Typography>
+                                            <Typography variant="body2" >{info}</Typography>
                                         </Stack>
                                         
                                     </Item>
@@ -81,7 +81,7 @@ function User() {
                                 <Stack spacing={2}>
                                     <Box></Box>
                                     <Item>
-                                        <UserTab/>
+                                        <UserTab info={info} setInfo={setInfo}/>
                                     </Item>
                                 </Stack>
                             </Grid>
