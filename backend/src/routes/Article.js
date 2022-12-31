@@ -2,8 +2,9 @@ import Article from '../models/Article'
 
 // Init card
 exports.InitArticle = async(req, res) => {
+    const page = req.query.page
     try{
-        const target = await Article.find({}).select('_id Artical_name Content image');
+        const target = await Article.find({}).skip(48 * (1 - page)).limit(48).select('_id Artical_name Content image');
         console.log(target)
         //console.log(target)
         res.status(200).send({ message: 'success', contents: target });

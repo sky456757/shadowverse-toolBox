@@ -2,8 +2,9 @@ import Deck from '../models/Deck'
 import UserDeck from '../models/UserDeck'
 
 exports.InitDeck = async(req, res) => {
+    const page = req.query.page
     try{
-        const target = await UserDeck.find({}).select('Deck_ID User_ID info name');
+        const target = await UserDeck.find({}).skip(48 * (1 - page)).limit(48).select('Deck_ID User_ID info name');
         console.log(target)
         res.status(200).send({ message: 'success', contents: target });
     }catch(err){

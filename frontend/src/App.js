@@ -5,9 +5,14 @@ const instance = axios.create({
 
 // about cards
 const getInitCard = async () => {
+  // example
+  const page = 1
+
   const {
     data: { message, contents },
-  } = await instance.get("/initCard", {});
+  } = await instance.get("/initCard", {
+    params: { page: page },
+  });
   console.log(contents);
 };
 
@@ -37,11 +42,28 @@ const getSearchCard = async () => {
   console.log(contents);
 };
 
-// about articles
-const getInitArticle = async () => {
+const getCardFromSixSet = async () => {
+  // example
+  const craft = "精靈";
+
   const {
     data: { message, contents },
-  } = await instance.get("/initArticle", {});
+  } = await instance.get("/getCardFromSixSet", {
+    params: { craft: craft },
+  });
+  console.log(contents);
+};
+
+// about articles
+const getInitArticle = async () => {
+  // example
+  const page = 1
+
+  const {
+    data: { message, contents },
+  } = await instance.get("/initArticle", {
+    params: { page: page },
+  });
   console.log(contents);
 };
 
@@ -67,9 +89,14 @@ const getInitActivity = async () => {
 
 // about deck
 const getInitDeck = async () => {
+  // example
+  const page = 1
+
   const {
     data: { message, contents },
-  } = await instance.get("/initDeck", {});
+  } = await instance.get("/initDeck", {
+    params: { page: page },
+  });
   console.log(contents);
 };
 
@@ -186,7 +213,7 @@ const getUserDecks = async () => {
 };
 
 function App() {
-  getDeckDetailbyID();
+  getCardFromSixSet();
 }
 
 export default App;

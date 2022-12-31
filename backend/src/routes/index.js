@@ -11,6 +11,7 @@ function main(app) {
   app.get('/api/initCard', wrap(CardRoute.InitCard))
   app.get('/api/findCard', wrap(CardRoute.FindCard))
   app.get('/api/getCard', wrap(CardRoute.GetCard))
+  app.get('/api/getCardFromSixSet', wrap(CardRoute.GetCardFromSixSet))
   // about activities
   app.get('/api/initActivity', wrap(ActivityRoute.InitActivity))
   // about articles
