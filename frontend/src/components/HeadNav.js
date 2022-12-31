@@ -62,7 +62,14 @@ function HeadNav() {
   const handleSettings = (s) => {
     setAnchorElUser(null);
     if(s == "user")
-      navigate('/'+s+'/'+'1')
+      navigate('/'+s+'/'+ localStorage.getItem("uid"))
+    if(s == "logout")
+    {
+      localStorage.removeItem("uid")
+      navigate('/')
+    }
+
+
     
   };
   const loginDisplay = () =>
@@ -201,7 +208,7 @@ function HeadNav() {
               </Button>
             ))}
           </Box>
-          {loginDisplay()
+          {localStorage.getItem("uid") ? avatarDisplay() : loginDisplay()
           }
           {//avatarDisplay()
           }

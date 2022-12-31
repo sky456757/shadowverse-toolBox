@@ -27,11 +27,22 @@ exports.GetUserDecks = async (req, res) => {
   }
 };
 
-// Get User content by user id
+// Get User content by user name
 exports.GetUser = async (req, res) => {
   const id = req.query.User_ID;
   try {
-    const target = await User.find({ User_ID: id });
+    const target = await User.findOne({ User_name: id });
+    console.log(target);
+    res.status(200).send({ message: "success", contents: target });
+  } catch (err) {
+    res.status(403).send({ message: "error", contents: [] });
+  }
+};
+// Get User content by user id
+exports.GetUserByID = async (req, res) => {
+  const id = req.query.User_ID;
+  try {
+    const target = await User.findOne({ User_ID: id });
     console.log(target);
     res.status(200).send({ message: "success", contents: target });
   } catch (err) {
@@ -42,15 +53,18 @@ exports.GetUser = async (req, res) => {
 // insert user
 exports.insertUser = async (req, res) => {
   const body = req.body;
+  let uid = await User.find({}).count() +1
   const newUser = new User({
-    User_ID: body.User_ID,
+    User_ID: uid,
     User_name: body.User_name,
     User_password: body.User_password,
-    User_rank: body.User_rank,
-    User_info: body.User_info,
+    User_rank: "Beginner",
+    User_info: "這個人很懶，還沒寫自我介紹",
   });
   try {
     await newUser.save();
+    console.log(uid)
+    res.status(200).send({ message: "success", contents: uid});
   } catch (err) {
     res.status(403).send({ message: "error" });
   }
@@ -82,7 +96,7 @@ exports.insertDeck = async (req, res) => {
       const newDeck = new Deck({
         Deck_ID: newDeckId,
         Card_ID: body.card[i].Card_ID,
-        Amount: body.card[i].Amount,
+        Amount: body.card[i].amount,
       });
       await newDeck.save();
     }

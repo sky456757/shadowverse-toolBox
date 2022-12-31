@@ -10,6 +10,10 @@ import Stack from '@mui/material/Stack';
 import ArticleCard from "../components/ArticleCard";
 import UserTab from "../components/UserTab";
 import Typography from '@mui/material/Typography';
+import axios from "axios";
+const instance = axios.create({
+  baseURL: "http://localhost:4000/api",
+});
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -22,8 +26,39 @@ const Item = styled(Paper)(({ theme }) => ({
 const imglink = "https://store.ymgal.games/archive/main/d5/d5fc5153d78c42d28f29c8bd2132b21d.webp"
 function User() {
     const [info, setInfo] = useState("測試");
-    useEffect(() => {
+    const [rank, setRank] = useState("無");
+    const [name, setName] = useState("無");
+    const [uid, setUID] = useState("001");
+    const [time, setTime] = useState("xx/xx/xx");
+    let { id } = useParams();
+    const navigate = useNavigate();
+    const getUserbyUserID = async (id) => {
+        // example
+      
+        const {
+          data: { message, contents },
+        } = await instance.get("/getUserByID", {
+          params: { User_ID: id },
+        });
+        if(!contents)
+        {
+            navigate('/user/1')
+            alert("user not found")
+    
+        }
+        setInfo(contents.User_info)
+        setRank(contents.User_rank)
+        setName(contents.User_name)
+        setTime(contents.created_at)
+        setUID(id)
+        console.log(contents);
+        return contents
+      };
+    useEffect(async () => {
         // Just run the first time
+        
+        getUserbyUserID(id)
+        
       }, [])
 	return (
     	<>
@@ -57,8 +92,8 @@ function User() {
                                     <Box></Box>
                                     <Item>
                                         <Stack spacing={1}>
-                                            <Typography variant="h5" >用戶名</Typography>
-                                            <Typography variant="body1" >Rank: Master</Typography>
+                                            <Typography variant="h5" >{name}</Typography>
+                                            <Typography variant="body1" >{"Rank: "+rank}</Typography>
                                             <Typography variant="body2" >{info}</Typography>
                                         </Stack>
                                         
@@ -71,8 +106,8 @@ function User() {
                                     </Item>
                                     <Item>
                                         <Stack spacing={1}>
-                                            <Typography variant="body1" >UID: 001</Typography>
-                                            <Typography variant="body2" textAlign="end">xx/xx/xx 加入</Typography>
+                                            <Typography variant="body1" >{"UID: "+uid}</Typography>
+                                            <Typography variant="body2" textAlign="end">{time.slice(0, 10)+" 加入"}</Typography>
                                         </Stack>
                                     </Item>
                                 </Stack>
@@ -81,7 +116,7 @@ function User() {
                                 <Stack spacing={2}>
                                     <Box></Box>
                                     <Item>
-                                        <UserTab info={info} setInfo={setInfo}/>
+                                        <UserTab info={info} setInfo={setInfo} rank={rank} setRank={setRank}/>
                                     </Item>
                                 </Stack>
                             </Grid>

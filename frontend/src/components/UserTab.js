@@ -15,6 +15,11 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 import SendIcon from '@mui/icons-material/Send';
 import Grid from '@mui/material/Unstable_Grid2';
 import Modal from '@mui/material/Modal';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+const ranks = ["Beginner","C","B","A","AA","Master","Grand Master"]
 const theme = createTheme({
 
     palette: {
@@ -89,10 +94,11 @@ function a11yProps(index) {
   };
 }
 
-export default function UserTab({info,setInfo}) {
+export default function UserTab({info,setInfo,rank,setRank}) {
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [tempInfo, setTempInfo] = React.useState(info);
+  const [tempRank, setTempRank] = React.useState(rank);
   const handleOpen = (ind) => 
   {
       setOpen(true);
@@ -131,9 +137,21 @@ export default function UserTab({info,setInfo}) {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Stack spacing={2}>
-            <Box>用戶名稱: 123</Box>
+
+            <FormControl fullWidth>
+                  <InputLabel id="cost-label">階級</InputLabel>
+                  <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={tempRank}
+                  label="craft"
+                  onChange={(e)=>setTempRank(e.target.value)}
+                  >	
+                    {ranks.map((c) => (<MenuItem value={c}>{c}</MenuItem>))}
+                  </Select>
+            </FormControl>
             <Box>自我介紹:</Box>
-            <TextareaAutosize value = {tempInfo} minRows={3} onChange={(e) => {setTempInfo(e.currentTarget.value);}}/>
+            <TextareaAutosize value = {info} minRows={3} onChange={(e) => {setTempInfo(e.currentTarget.value);}}/>
             <Box></Box>
         </Stack> 
         <Grid sx={{ width: '100%', height :'5vh',alignItems: "center",justifyContent: 'end',display:'flex'}} columns={{ xs: 12, sm: 12, md: 12 }}>
@@ -141,7 +159,7 @@ export default function UserTab({info,setInfo}) {
                 
             </Grid>
             <Grid item xs={3} sm={3} md={2} alignItems="center" display = "flex"justifyContent = "end" height = {1}>
-                <Button onClick={() => {setInfo(tempInfo);}}  variant="outlined" color="primary" endIcon={<SendIcon />}>修改</Button>
+                <Button onClick={() => {setInfo(tempInfo); setRank(tempRank);}}  variant="outlined" color="primary" endIcon={<SendIcon />}>修改</Button>
             </Grid>
         </Grid>
        

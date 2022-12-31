@@ -17,7 +17,10 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
 import { Stack } from '@mui/system';
-
+import axios from "axios";
+const instance = axios.create({
+  baseURL: "http://localhost:4000/api",
+});
 function not(a, b) {
   return a.filter((value) => b.indexOf(value) === -1);
 }
@@ -38,14 +41,33 @@ export default function DeckBuild() {
   const [craft,setCraft] = React.useState("精靈");
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
+  const getCardFromSixSet = async () => {
+    // example
+  
+    const {
+      data: { message, contents },
+    } = await instance.get("/getCardFromSixSet", {
+      params: { craft: craft },
+    });
+    for(var i = 0;i< contents.length;i++)
+    {
+      contents[i]["amount"] = 1
+      if(contents[i].Cost == 10)
+        contents[i].Cost = "10+"
+    }
+      
+    console.log(contents);
+    setLeft(contents)
+  };
   React.useEffect(() => {
     // Just run the first time
+    getCardFromSixSet()
     //alert('render')
-  }, [])
+  }, [craft])
   React.useEffect(() => {
     // Just run the first time
     //alert(craft)
-  }, [craft])
+  }, [])
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
@@ -173,7 +195,7 @@ export default function DeckBuild() {
                   }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={`${value.cardName} x ${value.amount}`} />
+              <ListItemText id={labelId} primary={`費用${value.Cost} ${value.Card_name} x ${value.amount}`} />
             </ListItem>
             <Button size="small" onClick={() => handleAmount(items,value,edit,1)}>up</Button>
             <Button size="small" onClick={() => handleAmount(items,value,edit,-1)}>down</Button>

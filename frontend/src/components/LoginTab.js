@@ -12,9 +12,14 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
+import { useNavigate } from "react-router-dom";
 import SendIcon from '@mui/icons-material/Send';
 import Grid from '@mui/material/Unstable_Grid2';
 import TextField from '@mui/material/TextField';
+import axios from "axios";
+const instance = axios.create({
+  baseURL: "http://localhost:4000/api",
+});
 const theme = createTheme({
 
     palette: {
@@ -71,11 +76,87 @@ export default function LoginTab({info,setInfo}) {
   const [value, setValue] = React.useState(0);
   const [tempID, setTempID] = React.useState("");
   const [tempPassword, setTempPassword] = React.useState("");
+  const [tempPassword2, setTempPassword2] = React.useState("");
+  const [tempUser, setTempUser] = React.useState("");
+  const navigate = useNavigate();
 
   
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+  const insertUser = async () => {
+    // example
+    const UserName = tempID;
+    const UserPassword = tempPassword;
+  
+    const {
+      data: { message, contents },
+    } = await instance.post("/insertUser", {
+      User_name: UserName,
+      User_password: UserPassword
+    });
+    return contents
+  };
+  const getUserbyUserID = async () => {
+    // example
+    const id = tempID;
+  
+    const {
+      data: { message, contents },
+    } = await instance.get("/getUser", {
+      params: { User_ID: id },
+    });
+    console.log(contents);
+    setTempUser(contents)
+    return contents
+  };
+  const handleLogIn = async () => {
+    let us = await getUserbyUserID()
+    if(tempID != "" && tempPassword!= "")
+    {
+      if(!us)
+        alert("用戶名不存在")
+      else
+      {
+        if(tempPassword != us.User_password)
+          alert("密碼錯誤")
+        else
+        {
+          alert("登入成功")
+          localStorage.setItem("uid",us.User_ID)
+          navigate('/')
+
+        }
+      }
+    }
+    else
+      alert("用戶名與密碼不可留空")
+    
+  };
+  const handleRegister = async () => {
+    let us = await getUserbyUserID()
+    if(tempID != "" && tempPassword!= "")
+    {
+      if(us)
+        alert("用戶名已被使用")
+      else
+      {
+        if(tempPassword != tempPassword2)
+          alert("確認密碼失敗")
+        else
+        {
+          alert("註冊成功")
+          let uid = await insertUser()
+          localStorage.setItem("uid",uid)
+          //alert(localStorage.getItem("uid"))
+          navigate('/')
+        }
+      }
+    }
+    else
+      alert("用戶名與密碼不可留空")
+    
   };
 
   return (
@@ -89,7 +170,7 @@ export default function LoginTab({info,setInfo}) {
       </Box>
       <TabPanel value={value} index={0}>
         <Stack spacing={2}>
-          <TextField id="outlined-search" label="帳號" type="search" onChange={(e)=>(setTempID(e.target.value))}/>
+          <TextField id="outlined-search" label="用戶名" type="search" onChange={(e)=>(setTempID(e.target.value))}/>
           <TextField
             id="outlined-password-input"
             label="密碼"
@@ -97,12 +178,11 @@ export default function LoginTab({info,setInfo}) {
             autoComplete="current-password"
             onChange={(e)=>(setTempPassword(e.target.value))}
           />
-          <Button onClick={() => {alert('clicked');}}  variant="outlined" color="primary" endIcon={<SendIcon />}>登入</Button>         
+          <Button onClick={handleLogIn}  variant="outlined" color="primary" endIcon={<SendIcon />}>登入</Button>         
         </Stack> 
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Stack spacing={2}>
-          <TextField id="outlined-search" label="帳號" type="search" onChange={(e)=>(setTempID(e.target.value))}/>
           <TextField id="outlined-search" label="用戶名" type="search" onChange={(e)=>(setTempID(e.target.value))}/>
           <TextField
             id="outlined-password-input"
@@ -116,9 +196,9 @@ export default function LoginTab({info,setInfo}) {
             label="確認密碼"
             type="password"
             autoComplete="current-password"
-            onChange={(e)=>(setTempPassword(e.target.value))}
+            onChange={(e)=>(setTempPassword2(e.target.value))}
           />
-          <Button onClick={() => {alert('clicked');}}  variant="outlined" color="primary" endIcon={<SendIcon />}>註冊</Button>         
+          <Button onClick={handleRegister}  variant="outlined" color="primary" endIcon={<SendIcon />}>註冊</Button>         
         </Stack>
       </TabPanel>
     </Box>
