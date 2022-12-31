@@ -11,6 +11,11 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import SendIcon from '@mui/icons-material/Send';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+
 import { Stack } from '@mui/system';
 
 function not(a, b) {
@@ -24,15 +29,23 @@ function intersection(a, b) {
 function union(a, b) {
   return [...a, ...not(b, a)];
 }
-
+const crafts = ["精靈","皇家護衛","巫師","龍族","死靈法師","吸血鬼","主教","復仇者"]
 export default function DeckBuild() {
   const [checked, setChecked] = React.useState([]);
   const [left, setLeft] = React.useState([{cardName:"0" , amount:1}, {cardName:"0" , amount:1}, {cardName:"0" , amount:1}, {cardName:"0" , amount:1}]);
   const [right, setRight] = React.useState([]);
   const [amount,setAmount] = React.useState(0);
+  const [craft,setCraft] = React.useState("精靈");
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
-
+  React.useEffect(() => {
+    // Just run the first time
+    //alert('render')
+  }, [])
+  React.useEffect(() => {
+    // Just run the first time
+    //alert(craft)
+  }, [craft])
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
@@ -130,7 +143,7 @@ export default function DeckBuild() {
       <List
         sx={{
           width: "26vw",
-          height: "65vh",
+          height: "59vh",
           bgcolor: 'background.paper',
           overflow: 'auto',
         }}
@@ -172,9 +185,22 @@ export default function DeckBuild() {
   );
 
   return (
-    <Stack>
+    <Stack spacing={1}>
       {amount == 40 ? <Box component="h1" textAlign="center" color="green">{amount+"/40"}</Box> : <Box component="h1" textAlign="center">{amount+"/40"}</Box>}
+      <FormControl fullWidth>
+            <InputLabel id="cost-label">Craft</InputLabel>
+            <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={craft}
+            label="craft"
+            onChange={(e)=>setCraft(e.target.value)}
+          	>	
+            	{crafts.map((c) => (<MenuItem value={c}>{c}</MenuItem>))}
+          	</Select>
+      </FormControl>
       <Grid container spacing={2} justifyContent="center" alignItems="center">
+        
         <Grid item>{customList('所有卡片', left,setLeft)}</Grid>
         <Grid item>
           <Grid container direction="column" alignItems="center">

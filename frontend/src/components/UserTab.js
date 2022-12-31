@@ -14,6 +14,7 @@ import Button from '@mui/material/Button';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import SendIcon from '@mui/icons-material/Send';
 import Grid from '@mui/material/Unstable_Grid2';
+import Modal from '@mui/material/Modal';
 const theme = createTheme({
 
     palette: {
@@ -27,6 +28,28 @@ const theme = createTheme({
       },
     },
   });
+  const Item2 = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    textAlign: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    width: "100%",
+
+    color: theme.palette.text.secondary,
+
+  }));
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 800,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   
@@ -125,6 +148,38 @@ export default function UserTab({info,setInfo}) {
 
       </TabPanel>
     </Box>
+    <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Stack direction="row" spacing={2}>
+                        <Grid sx={{ width: '100%', height :'10%',alignContent: "center",alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
+                            {
+                            [0,0,0,0,0,0,0,0,0].map(() =>(
+                                <Grid item xs={3} sm={3} md={5}  alignItems="center" justifyContent = "center" display="flex">
+                                    <Item2>
+                                        <Grid sx={{ width: '100%', height :'2%',alignContent: "center",alignItems: "center",justifyContent: 'center',display:'flex'}} padding = {0}container spacing={{ xs: 2, md: 0 }} columns={{ xs: 9, sm: 9, md: 9 }}>
+                                            <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
+                                                <p>費用 ?</p>
+                                            </Grid>
+                                            <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
+                                                <p>卡名 ?</p>
+                                            </Grid>
+                                            <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
+                                                <p>張數 ?</p>
+                                            </Grid>
+                                        </Grid>
+                                    </Item2>
+                                </Grid>
+                            ))
+                            } 
+                        </Grid>
+                    </Stack>
+                </Box>
+            </Modal>
     </ThemeProvider>
   );
 }

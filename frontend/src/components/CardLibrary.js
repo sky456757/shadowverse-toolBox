@@ -5,11 +5,17 @@ import { useEffect,useState } from "react";
 import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Autocomplete from '@mui/material/Autocomplete';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import axios from "axios";
+const instance = axios.create({
+  baseURL: "http://localhost:4000/api",
+});
 const style = {
     position: 'absolute',
     top: '50%',
@@ -30,14 +36,25 @@ const Item = styled(Paper)(({ theme }) => ({
     height : '22vh',
     color: theme.palette.text.secondary,
   }));
-
+const costs = ["all",0,1,2,3,4,5,6,7,8,9,"10+"]
+const rares = ["all","青銅","白銀","黃金","傳說"]
+const crafts = ["all","中立","精靈","皇家護衛","巫師","龍族","死靈法師","吸血鬼","主教","復仇者"]
 const lin =  ["https://shadowverse-portal.com/image/card/phase2/common/C/C_107834020.png","https://shadowverse-portal.com/image/card/phase2/common/C/C_115814010.png?202211181636"]
 function CardLibrary() {
     const [page, setPage] = useState(1);
     const [open, setOpen] = useState(false);
+    const [craft,setCraft] = useState("all");
+    const [rare,setRare] = useState("all");
+    const [cost,setCost] = useState("all");
+    const [cards,setCards] = useState([]);
+    const [card,setCard] = useState({Effect:[],Card_type:[]});
+    const [cardID,setCardID] = useState("");
+    const [maxPage, setMaxPage] = useState(10);
     const handleOpen = (ind) => 
     {
+        setCardID(ind)
         setOpen(true);
+        //alert(ind)
         
         //alert(ind);
     }
@@ -46,46 +63,104 @@ function CardLibrary() {
         setPage(value);
         //alert(value)
     };
+    const getInitCard = async (p) => {
+        // example
+        const page = p
+      
+        const {
+          data: { message, contents },
+        } = await instance.get("/initCard", {
+          params: { page: page ,cost:cost,craft:craft,rare:rare},
+        });
+        setMaxPage(message)
+        //console.log(contents);
+        setCards(contents)
+      };
+      const getCardbyID = async () => {
+        // example
+        const id = cardID;
+      
+        const {
+          data: { message, contents },
+        } = await instance.get("/getCard", {
+          params: { _id: id },
+        });
+        console.log(contents);
+        //alert(Object.keys(contents))
+        setCard(contents)
+      };
     useEffect(() => {
         // Just run the first time
+        getInitCard(page)
+        
         //alert('render')
       }, [])
+    useEffect(() => {
+        // Just run the first time
+        getInitCard(page)
+        //alert(cards)
+        //alert('render')
+      }, [page,cost,rare,craft])
+      useEffect(() => {
+        // Just run the first time
+        if(cardID!="")
+            getCardbyID()
+        //alert(cards)
+        //alert('render')
+      }, [cardID])
 	return (
     	<>
             <Box sx={{ flexGrow: 1 ,height :'100%',width:'100%',display: { xs: 'none', md: 'flex' }, alignItems: "end",justifyContent: 'center'}}>
                 <Grid sx={{ width: '72%', height :'100%',alignItems: "space-around",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                   <Grid item xs={4} sm={8} md={12} backgroundColor = "#F5F5F5" height ={0.05} width = '100%'alignItems="center" justifyContent = "center" m={0} borderRadius = "3%">
                     <Stack direction="row" spacing={2} alignItems="center" justifyContent = "center" height = "100%">
-                        <Autocomplete
-                        disablePortal
-                        id="cost-box"
-                        options={cost}
-                        sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="費用" />}
-                        />
-                        <Autocomplete
-                        disablePortal
-                        id="craft-box"
-                        options={craft}
-                        sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="職業" />}
-                        />
-                        <Autocomplete
-                        disablePortal
-                        id="rare-box"
-                        options={rare}
-                        sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="稀有度" />}
-                        />
+                        <FormControl fullWidth>
+                            <InputLabel id="cost-label">費用</InputLabel>
+                            <Select
+                                labelId="cost-label"
+                                id="cost-select"
+                                width = "100%"
+                                value={cost}
+                                label="cost"
+                                onChange={(e)=>setCost(e.target.value)}
+                            >
+                                {costs.map((c) => (c == "10+" ? <MenuItem value={10}>{c}</MenuItem> :<MenuItem value={c}>{c}</MenuItem>))}
+                            </Select>
+                        </FormControl>
+                        <FormControl fullWidth>
+                            <InputLabel id="rare-label">稀有度</InputLabel>
+                            <Select
+                                labelId="rare-label"
+                                id="rare-select"
+                                value={rare}
+                                label="rare"
+                                onChange={(e)=>setRare(e.target.value)}
+                            >
+                                {rares.map((c) => (<MenuItem value={c}>{c}</MenuItem>))}
+                            </Select>
+                        </FormControl>
+                        <FormControl fullWidth>
+                            <InputLabel id="craft-label">職業</InputLabel>
+                            <Select
+                                labelId="craft-labell"
+                                id="craft-select"
+                                value={craft}
+                                label="craft"
+                                onChange={(e)=>setCraft(e.target.value)}
+                            >
+                                {crafts.map((c) => (<MenuItem value={c}>{c}</MenuItem>))}
+                            </Select>
+                        </FormControl>
+                        
                     </Stack>
                   </Grid>
-                    {Array.from(Array(48)).map
+                    {cards.map
                     (
-                        (_, index) => 
+                        (c) => 
                         (
-                            <Grid item xs={2} sm={4} md={2} key={index}>
+                            <Grid item xs={2} sm={4} md={2} key={c._id}>
                                 <Item>
-                                    <Button onClick = {(index) => handleOpen(index)}>
+                                    <Button onClick = {() => handleOpen(c._id)}>
                                         <Box
                                         component="img"
                                         sx={{
@@ -93,7 +168,7 @@ function CardLibrary() {
                                         width: '100%',
                                         cursor: 'pointer',
                                         }}
-                                        src= {lin[page%2]}
+                                        src= {c.Image[0]}
                                         />
                                     </Button>
                                     
@@ -103,7 +178,7 @@ function CardLibrary() {
                     )}
                     <Grid item xs={4} sm={8} md={12} height ={0.02} alignItems="center">
                       <Stack spacing={2} alignItems="center" height="100%">
-                          <Pagination count={10} page ={page} onChange = {handleChange}/>
+                          <Pagination count={maxPage} page ={page} onChange = {handleChange}/>
                       </Stack>
                     </Grid>
                 </Grid>
@@ -124,29 +199,34 @@ function CardLibrary() {
                             width: '50%',
                             cursor: 'pointer',
                             }}
-                            src= {lin[0]}
+                            src= {card.Image}
                         />
                         <Item>
                             <Stack  spacing={2}>
-                                <h3>卡名</h3>
-                                <p>----------------------------------</p>
-                                <p>職業 類型...</p>
-                                <p>職業 類型...</p>
+                                <h3>{card.Card_name}</h3>
+                                <p>{"職業: "+ card.Craft}</p>
+                                {"類型: "+card.Card_type.map((c)=>{
+                                    return(c)
+                                })}
+                                <p>{"卡包: "+ card.Card_pack}</p>
                             </Stack>
                         </Item>
                     </Stack>
                     
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        卡片效果:測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試
+                        {card.Effect[0]}
                     </Typography>
+                    {card.Effect.length == 2 ?
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        {"進化後: "+card.Effect[1]}
+                    </Typography>
+                    :null}
                 </Box>
             </Modal>
         </>
 
   	);
 }
-const cost = [0,1,2,3,4,5,6,7,8,9,"10+"]
-const rare = ["青銅","白銀","黃金","傳說"]
-const craft = ["精靈","皇家護衛","巫師","龍族","死靈法師","吸血鬼","主教","復仇者"]
+
   
 export default CardLibrary;

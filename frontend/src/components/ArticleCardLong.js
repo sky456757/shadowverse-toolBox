@@ -13,7 +13,7 @@ const title = "70%勝率GM，指定棄牌龍"
 const content = "文章簡介文章簡介文章簡介文章簡介文章簡介..."
 export default function ArticleCard() {
   return (
-    <Card sx={{height:"100%" ,width:"100%",cursor:"pointer",display:'flex',alignItems: "start",justifyContent: 'center' ,margin: 0 ,padding: 0}}>
+    <Card onClick={()=>(alert("test"))} sx={{height:"100%" ,width:"100%",cursor:"pointer",display:'flex',alignItems: "start",justifyContent: 'center' ,margin: 0 ,padding: 0}}>
       <Grid sx={{ width: '100%', height :'100%',alignItems: "center",justifyContent: 'start',display:'flex',margin: 0 ,padding: 0}}  columns={{ xs: 10, sm: 10, md: 12 }}>
             <Grid item xs={3} sm={3} md={2} alignItems="center" justifyContent = "start" height = {1}>
               <CardMedia

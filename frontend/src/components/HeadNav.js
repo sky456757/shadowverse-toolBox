@@ -15,12 +15,16 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { createTheme ,ThemeProvider, responsiveFontSizes} from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 const pages = ['cards', 'decks', 'articles'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['user', 'logout'];
 const pagesDict = {
   cards:{title:"卡牌圖鑑"},
   decks:{title:"卡組分享"},
   articles:{title:"精選文章"},
   battles:{title:"對局分享"}
+}
+const settingsDict = {
+  user:{title:"個人頁面"},
+  logout:{title:"登出"}
 }
 let theme = createTheme({
 
@@ -53,16 +57,23 @@ function HeadNav() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    
+  };
+  const handleSettings = (s) => {
+    setAnchorElUser(null);
+    if(s == "user")
+      navigate('/'+s+'/'+'1')
+    
   };
   const loginDisplay = () =>
   (
     <Box sx={{ flexGrow: 0 }}>
-            <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block' }}
-              >
-                Login
-              </Button>
+        <Button
+          onClick={ ()=>navigate('/login')}
+          sx={{ my: 2, color: 'black', display: 'block' }}
+        >
+          Login
+        </Button>
     </Box>
   )
   const avatarDisplay = () =>
@@ -90,8 +101,8 @@ function HeadNav() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting} onClick={()=> handleSettings(setting)}>
+                  <Typography textAlign="center">{settingsDict[setting].title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -190,7 +201,10 @@ function HeadNav() {
               </Button>
             ))}
           </Box>
-          {loginDisplay()}
+          {loginDisplay()
+          }
+          {//avatarDisplay()
+          }
         </Toolbar>
       </Container>
     </AppBar>
