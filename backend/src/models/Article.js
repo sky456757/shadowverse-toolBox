@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 
 const ArticleSchema = Schema({
     // _id: { type: Number },
+    Artical_ID: { type: Number, required: true },
     Artical_name: { type: String, required: true },
     Author_ID: { type: Number, require: true},
     Content: {type: String, require: true},

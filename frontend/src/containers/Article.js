@@ -10,8 +10,12 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
 import { createTheme ,ThemeProvider, responsiveFontSizes} from '@mui/material/styles';
-
 import Typography from '@mui/material/Typography';
+import axios from "axios";
+const instance = axios.create({
+  baseURL: "http://localhost:4000/api",
+});
+
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -36,11 +40,37 @@ let theme = createTheme({
   });
 theme = responsiveFontSizes(theme);
 
-const imglink = "https://store.ymgal.games/archive/main/d5/d5fc5153d78c42d28f29c8bd2132b21d.webp"
 function Article() {
 
+    const {id} = useParams()
+    const [article,setArticle] = useState("");
+    const navigate = useNavigate();
+    const getArticlebyID = async () => {
+        // example
+       
+      
+  
+
+        const {
+          data: { message, contents },
+        } = await instance.get("/getArticle", {
+          params: { _id: id },
+        });
+        //alert(contents)
+        if(!contents || message =="error")
+        {
+            alert("article not found")
+            navigate('/')
+
+        }
+        setArticle(contents)
+        console.log(contents);
+      };
     useEffect(() => {
         // Just run the first time
+        getArticlebyID()
+        
+        //alert(id)
       }, [])
 	return (
     	<>  
@@ -86,11 +116,11 @@ function Article() {
                                     <Box></Box>
                                     <Box></Box>
                                     <Typography gutterBottom textAlign="center" variant="h3" color="black" component="div">
-                                        文章標題
+                                        {article.Artical_name}
                                     </Typography>
                                     <Divider></Divider>
                                     <Typography gutterBottom  variant="body1" color="black" component="div">
-                                        文章內容 文章內容 文章內容
+                                        {article.Content}
                                     </Typography>
 
                                     <Box></Box>

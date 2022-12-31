@@ -12,6 +12,10 @@ import AddCardIcon from '@mui/icons-material/AddCard';
 import Stack from '@mui/material/Stack';
 import Foot from "../components/Foot";
 import Typography from '@mui/material/Typography';
+import axios from "axios";
+const instance = axios.create({
+  baseURL: "http://localhost:4000/api",
+});
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -38,15 +42,34 @@ const Item = styled(Paper)(({ theme }) => ({
   )
 function Articles() {
     const [page, setPage] = useState(1);
+    const [maxPage, setMaxPage] = useState(10);
+    const [articles,setArticles] = useState([]);
     const navigate = useNavigate();
     const handleChange = (event, value) => {
         setPage(value);
         //alert(value)
     };
+    const getInitArticle = async () => {
+        // example
+      
+        const {
+          data: { message, contents },
+        } = await instance.get("/initArticle", {
+          params: { page: page },
+        });
+        setMaxPage(message)
+        setArticles(contents)
+        console.log(contents);
+      };
     useEffect(() => {
         // Just run the first time
         //alert('render')
       }, [])
+      useEffect(() => {
+        // Just run the first time
+        //alert('render')
+        getInitArticle()
+      }, [page])
 
 	return (
     	<>
@@ -88,26 +111,19 @@ function Articles() {
                             </Stack>
                         </Grid>
                         <Grid sx={{ width: '70%', height :'20%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
-                            <Grid item xs={3} sm={3} md={10} alignItems="center" justifyContent = "center" height = "0.8">
-                                <ArticleCard/>
-                            </Grid>
-                            <Grid item xs={3} sm={3} md={10} alignItems="center" justifyContent = "center" height = "0.8">
-                                <ArticleCard/>
-                            </Grid>
-                            <Grid item xs={3} sm={3} md={10} alignItems="center" justifyContent = "center" height = "0.8">
-                                <ArticleCard/>
-                            </Grid>
-                            <Grid item xs={3} sm={3} md={10} alignItems="center" justifyContent = "center" height = "0.8">
-                                <ArticleCard/>
-                            </Grid>
-                            <Grid item xs={3} sm={3} md={10} alignItems="center" justifyContent = "center" height = "0.8">
-                                <ArticleCard/>
-                            </Grid>
+                            {articles.map((a)=>(
+                                <Grid item xs={3} sm={3} md={10} alignItems="center" justifyContent = "center" height = "0.8">
+                                    <ArticleCard name={a.Artical_name} info={a.Content.slice(0,20)+"..."} image={a.image} id={a.Artical_ID}/>
+                                </Grid>
+                            ))
+                            //articles.map((a)=>(alert(a.Artical_name)))
+                            }
+
                             <Grid sx={{ width: '70%', height :'30%',alignItems: "start",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
                             </Grid>
                             <Grid item xs={4} sm={8} md={12} height ={0.02} width ={1} alignItems="center">
                                 <Stack spacing={2} alignItems="center" height="100%">
-                                    <Pagination count={10} page ={page} onChange = {handleChange}/>
+                                    <Pagination count={maxPage} page ={page} onChange = {handleChange}/>
                                 </Stack>
                             </Grid>
                         </Grid>

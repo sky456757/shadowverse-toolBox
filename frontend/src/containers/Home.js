@@ -72,14 +72,51 @@ const displaySideTitle = (T) =>
 
 function Home() {
 
-    useEffect(() => {
+   
+      const [open, setOpen] = useState(false);
+      const [decks,setDecks] = useState([]);
+      const [deckID,setDeckID] = useState("1");
+      const [deck,setDeck] = useState([]);
+      const [articles,setArticles] = useState([]);
+      const initHome = async () => {
+        const {
+          data: { message, contents },
+        } = await instance.get("/initHome", {
+        });
+        setDecks(contents.deck)
+        setArticles(contents.article)
+        
+        console.log(contents);
+      };
+      const getDeckDetailbyID = async () => {
+        // example
+        
+      
+        const {
+          data: { message, contents },
+        } = await instance.get("/deckDetail", {
+          params: { Deck_ID: deckID },
+        });
+        //alert(contents[0])
+        setDeck(contents.deckCard)
+        console.log(contents);
+      };
+      
+      useEffect(() => {
         // Just run the first time
+        initHome()
 
       }, [])
-      const [open, setOpen] = useState(false);
+      useEffect(() => {
+       
+        getDeckDetailbyID()
+
+      }, [deckID])
       const handleOpen = (ind) => 
       {
-          setOpen(true);
+        
+        setDeckID(ind)
+        setOpen(true);
           
           //alert(ind);
       }
@@ -118,31 +155,16 @@ function Home() {
                         {displayTitle("精選牌組")}
                         
                         <Grid sx={{ width: '70%', height :'12%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
-                            <Grid item xs={3} sm={3} md={2} alignItems="center" justifyContent = "center" height = {1}>
-                                <Button onClick = {() => handleOpen()}> 
-                                    <DeckCard/>
-                                </Button>
-                            </Grid>
-                            <Grid item xs={3} sm={3} md={2} alignItems="center" justifyContent = "center" height = {1}>
-                                <Button onClick = {() => handleOpen()}> 
-                                    <DeckCard/>
-                                </Button>
-                            </Grid>
-                            <Grid item xs={3} sm={3} md={2} alignItems="center" justifyContent = "center" height = {1}>
-                                <Button onClick = {() => handleOpen()}> 
-                                    <DeckCard/>
-                                </Button>
-                            </Grid>
-                            <Grid item xs={3} sm={3} md={2} alignItems="center" justifyContent = "center" height = {1}>
-                                <Button onClick = {() => handleOpen()}> 
-                                    <DeckCard/>
-                                </Button>
-                            </Grid>
-                            <Grid item xs={3} sm={3} md={2} alignItems="center" justifyContent = "center" height = {1}>
-                                <Button onClick = {() => handleOpen()}> 
-                                    <DeckCard/>
-                                </Button>
-                            </Grid>
+                            {
+                                decks.map((d) =>(
+                                    <Grid item xs={3} sm={3} md={2} alignItems="center" justifyContent = "center" height = {1}>
+                                        <Button onClick = {() => handleOpen(d.Deck_ID)}> 
+                                            <DeckCard name ={d.name} info={d.info} user={d.User_Name} time = {d.created_at.slice(0,10)} craft = {d.craft}/>
+                                        </Button>
+                                    </Grid>
+                                ))
+                            } 
+
 
                         </Grid>
                         <Grid sx={{ width: '70%', height :'77%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 1, md: 1 }} columns={{ xs: 12, sm: 12, md: 11 }}>
@@ -151,30 +173,14 @@ function Home() {
                                 </Grid>
                                 {displayTitle("攻略專欄")}
                                 <Grid sx={{ width: '100%', height :'20%',alignItems: "center",justifyContent: 'start',display:'flex'}} container spacing={{ xs: 1, md: 2 }} columns={{ xs: 10, sm: 10, md: 12 }}>
-                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
-                                        <ArticleCard/>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
-                                        <ArticleCard/>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
-                                        <ArticleCard/>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
-                                        <ArticleCard/>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
-                                        <ArticleCard/>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
-                                        <ArticleCard/>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
-                                        <ArticleCard/>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
-                                        <ArticleCard/>
-                                    </Grid>
+                                    {articles.map((a)=>(
+                                        <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
+                                            <ArticleCard name={a.Artical_name} info={a.Content.slice(0,20)+"..."} image={a.image} id={a.Artical_ID}/>
+                                        </Grid>
+                                    ))
+                                    //articles.map((a)=>(alert(a.Artical_name)))
+                                    }
+                                    
                                 </Grid>
                             </Grid>
                             <Grid item xs={3} sm={3} md={3} alignItems="center" justifyContent = "center" height = {1}>
@@ -214,18 +220,18 @@ function Home() {
                     <Stack direction="row" spacing={2}>
                         <Grid sx={{ width: '100%', height :'10%',alignContent: "center",alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
                             {
-                            [0,0,0,0,0,0,0,0,0].map(() =>(
+                            deck.map((d) =>(
                                 <Grid item xs={3} sm={3} md={5}  alignItems="center" justifyContent = "center" display="flex">
                                     <Item2>
                                         <Grid sx={{ width: '100%', height :'2%',alignContent: "center",alignItems: "center",justifyContent: 'center',display:'flex'}} padding = {0}container spacing={{ xs: 2, md: 0 }} columns={{ xs: 9, sm: 9, md: 9 }}>
                                             <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
-                                                <p>費用 ?</p>
+                                                <p>{"費用"+d.Card_cost}</p>
                                             </Grid>
                                             <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
-                                                <p>卡名 ?</p>
+                                                <p>{d.Card_name}</p>
                                             </Grid>
                                             <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
-                                                <p>張數 ?</p>
+                                                <p>{"x"+d.Amount}</p>
                                             </Grid>
                                         </Grid>
                                     </Item2>

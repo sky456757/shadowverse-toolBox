@@ -11,20 +11,20 @@ const title = " 帥氣血鬼"
 const content = "牌組簡介牌組簡介牌組簡介牌組簡介牌組簡介"
 const inf = "xxx 分享 xx/xx/xx"
 
-export default function DeckCard() {
+export default function DeckCard({name ,info ,user ,time ,craft}) {
   return (
     <Card sx={{ maxWidth: 345 ,height:"15vh" ,cursor:"pointer"}}>
       <CardContent>
         <Typography gutterBottom variant="body1" component="div">
-          {title}
+          {name +" 職業: " +craft}
         </Typography>
         <Divider/>
         <Typography variant="body2" color="text.secondary">
-          {content}
+          {info}
         </Typography>
         <Divider/>
         <Typography variant="body3" color="text.secondary">
-          {inf}
+          {user+" 分享於 "+time}
         </Typography>
       </CardContent>
     </Card>

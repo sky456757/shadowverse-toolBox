@@ -30,6 +30,8 @@ function User() {
     const [name, setName] = useState("無");
     const [uid, setUID] = useState("001");
     const [time, setTime] = useState("xx/xx/xx");
+    const [articles, setArticles] = useState([]);
+    const [decks, setDecks] = useState([]);
     let { id } = useParams();
     const navigate = useNavigate();
     const getUserbyUserID = async (id) => {
@@ -42,7 +44,7 @@ function User() {
         });
         if(!contents)
         {
-            navigate('/user/1')
+            navigate('/')
             alert("user not found")
     
         }
@@ -54,10 +56,40 @@ function User() {
         console.log(contents);
         return contents
       };
-    useEffect(async () => {
+      const getUserArticles = async (id) => {
+        // example
+    
+      
+        const {
+          data: { message, contents },
+        } = await instance.get("/getUserArticles", {
+          params: { User_ID: id },
+        });
+        setArticles(contents)
+        console.log(contents);
+      };
+      
+      // get user deck
+      const getUserDecks = async (id) => {
+        // example
+        //const id = 1;
+      
+        const {
+          data: { message, contents },
+        } = await instance.get("/getUserDecks", {
+          params: { User_ID: id },
+        });
+        setDecks(contents)
+        console.log(contents);
+      };
+      
+    useEffect( () => {
         // Just run the first time
         
+
         getUserbyUserID(id)
+        getUserArticles(id)
+        getUserDecks(id)
         
       }, [])
 	return (
@@ -100,8 +132,8 @@ function User() {
                                     </Item>
                                     <Item>
                                         <Stack spacing={1}>
-                                            <Typography variant="h6" >撰寫了 x 篇文章</Typography>
-                                            <Typography variant="h6" >分享了 x 個牌組</Typography>
+                                            <Typography variant="h6" >{"撰寫了 "+articles.length+" 篇文章"}</Typography>
+                                            <Typography variant="h6" >{"分享了 " +decks.length+ " 個牌組"}</Typography>
                                         </Stack>
                                     </Item>
                                     <Item>
@@ -116,7 +148,7 @@ function User() {
                                 <Stack spacing={2}>
                                     <Box></Box>
                                     <Item>
-                                        <UserTab info={info} setInfo={setInfo} rank={rank} setRank={setRank}/>
+                                        <UserTab info={info} setInfo={setInfo} rank={rank} setRank={setRank} articles={articles} decks={decks} user={name}/>
                                     </Item>
                                 </Stack>
                             </Grid>

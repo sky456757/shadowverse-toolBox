@@ -4,9 +4,11 @@ import UserDeck from '../models/UserDeck'
 exports.InitDeck = async(req, res) => {
     const page = req.query.page
     try{
-        const target = await UserDeck.find({}).skip(48 * (1 - page)).limit(48).select('Deck_ID User_ID info name');
+        const target = await UserDeck.find({}).skip(15 * (page-1)).limit(15).select('Deck_ID User_ID User_Name info name craft created_at');
+        let p = await UserDeck.find({}).count()
+        p = Math.ceil(p/15)
         console.log(target)
-        res.status(200).send({ message: 'success', contents: target });
+        res.status(200).send({ message: p, contents: target });
     }catch(err){
         res.status(403).send({ message: 'error', contents: []})
     }

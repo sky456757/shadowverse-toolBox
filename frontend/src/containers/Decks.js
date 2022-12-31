@@ -13,6 +13,10 @@ import Stack from '@mui/material/Stack';
 import { useNavigate } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import axios from "axios";
+const instance = axios.create({
+  baseURL: "http://localhost:4000/api",
+});
 const style = {
     position: 'absolute',
     top: '50%',
@@ -51,7 +55,41 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Decks() {
     const [page, setPage] = useState(1);
+    const [maxPage, setMaxPage] = useState(10);
+    const [decks,setDecks] = useState([]);
+    const [deckID,setDeckID] = useState("1");
+    const [deck,setDeck] = useState([]);
     const navigate = useNavigate();
+    const getInitDeck = async () => {
+        // example
+      
+        const {
+          data: { message, contents },
+        } = await instance.get("/initDeck", {
+          params: { page: page },
+        });
+        setMaxPage(message)
+        setDecks(contents)
+        console.log(contents);
+      };
+      const getDeckDetailbyID = async () => {
+        // example
+        
+      
+        const {
+          data: { message, contents },
+        } = await instance.get("/deckDetail", {
+          params: { Deck_ID: deckID },
+        });
+        //alert(contents[0])
+        setDeck(contents.deckCard)
+        console.log(contents);
+      };
+      useEffect(() => {
+       
+        getDeckDetailbyID()
+
+      }, [deckID])
     const handleChange = (event, value) => {
         setPage(value);
         //alert(value)
@@ -59,6 +97,7 @@ function Decks() {
     const [open, setOpen] = useState(false);
     const handleOpen = (ind) => 
     {
+        setDeckID(ind)
         setOpen(true);
         
         //alert(ind);
@@ -68,6 +107,12 @@ function Decks() {
         // Just run the first time
         //alert('render')
       }, [])
+    useEffect(() => {
+        // Just run the first time
+        //alert('render')
+        getInitDeck()
+      }, [page])
+
 	return (
     	<>
             <HeadNav/>
@@ -118,10 +163,10 @@ function Decks() {
                         </Grid>
                         <Grid sx={{ width: '67%', height :'20%',alignItems: "center",justifyContent: 'start',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
                             {
-                                [0,0,0,0,0,0,0,0,0,0,0,0,0].map(() =>(
+                                decks.map((d) =>(
                                     <Grid item xs={3} sm={3} md={2} alignItems="center" justifyContent = "center" >
-                                        <Button onClick = {() => handleOpen()}> 
-                                            <DeckCard/>
+                                        <Button onClick = {() => handleOpen(d.Deck_ID)}> 
+                                            <DeckCard name ={d.name} info={d.info} user={d.User_Name} time = {d.created_at.slice(0,10)} craft = {d.craft}/>
                                         </Button>
                                     </Grid>
                                 ))
@@ -133,7 +178,7 @@ function Decks() {
                             </Grid>
                             <Grid item xs={4} sm={8} md={12} height ={0.02} alignItems="center">
                                 <Stack spacing={2} alignItems="center" height="100%">
-                                    <Pagination count={10} page ={page} onChange = {handleChange}/>
+                                    <Pagination count={maxPage} page ={page} onChange = {handleChange}/>
                                 </Stack>
                             </Grid>
                         </Grid>
@@ -152,18 +197,18 @@ function Decks() {
                     <Stack direction="row" spacing={2}>
                         <Grid sx={{ width: '100%', height :'10%',alignContent: "center",alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
                             {
-                            [0,0,0,0,0,0,0,0,0].map(() =>(
+                            deck.map((d) =>(
                                 <Grid item xs={3} sm={3} md={5}  alignItems="center" justifyContent = "center" display="flex">
                                     <Item>
                                         <Grid sx={{ width: '100%', height :'2%',alignContent: "center",alignItems: "center",justifyContent: 'center',display:'flex'}} padding = {0}container spacing={{ xs: 2, md: 0 }} columns={{ xs: 9, sm: 9, md: 9 }}>
                                             <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
-                                                <p>費用 ?</p>
+                                                <p>{"費用"+d.Card_cost}</p>
                                             </Grid>
                                             <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
-                                                <p>卡名 ?</p>
+                                                <p>{d.Card_name}</p>
                                             </Grid>
                                             <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
-                                                <p>張數 ?</p>
+                                                <p>{"x"+d.Amount}</p>
                                             </Grid>
                                         </Grid>
                                     </Item>

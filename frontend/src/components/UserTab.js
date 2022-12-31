@@ -94,7 +94,7 @@ function a11yProps(index) {
   };
 }
 
-export default function UserTab({info,setInfo,rank,setRank}) {
+export default function UserTab({info,setInfo,rank,setRank,articles,decks,user}) {
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [tempInfo, setTempInfo] = React.useState(info);
@@ -123,16 +123,20 @@ export default function UserTab({info,setInfo,rank,setRank}) {
       </Box>
       <TabPanel value={value} index={0}>
         <Stack spacing={2}>
-          <Button color="secondary"onClick = {() => handleOpen()}> 
-            <DeckCard/>
-          </Button>                  
+          {
+            decks.map((d)=>(
+            <Button color="secondary"onClick = {() => handleOpen()}> 
+              <DeckCard name ={d.name} info={d.info} user={user} time = {d.created_at.slice(0,10)} craft = {d.craft}/>
+            </Button>      
+            ))
+          }                
         </Stack> 
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Stack spacing={2}>
-            <ArticleCard/>
-            <ArticleCard/>
-            <ArticleCard/>
+            {articles.map((a)=>(<ArticleCard name={a.Artical_name} info={a.Content.slice(0,20)+"..."} image={a.image} id={a.Artical_ID}/>))
+            //articles.map((a)=>(alert(a.Artical_name)))
+            }
         </Stack> 
       </TabPanel>
       <TabPanel value={value} index={2}>

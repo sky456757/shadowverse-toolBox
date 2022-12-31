@@ -4,10 +4,12 @@ import Article from '../models/Article'
 exports.InitArticle = async(req, res) => {
     const page = req.query.page
     try{
-        const target = await Article.find({}).skip(48 * (1 - page)).limit(48).select('_id Artical_name Content image');
+        const target = await Article.find({}).skip(5 * (page-1)).limit(5).select('_id Artical_name Artical_ID Content image');
+        let p = await Article.find({}).count()
+        p = Math.ceil(p/5)
         console.log(target)
         //console.log(target)
-        res.status(200).send({ message: 'success', contents: target });
+        res.status(200).send({ message: p, contents: target });
     }catch(err){
         res.status(403).send({ message: 'error', contents: []})
     }
@@ -17,11 +19,11 @@ exports.InitArticle = async(req, res) => {
 exports.GetArticle = async(req, res) => {
     const id = req.query._id
     try{
-        const target = await Article.find({_id: id});
+        const target = await Article.findOne({Artical_ID: id});
         console.log(target)
-        //console.log(target)
         res.status(200).send({ message: 'success', contents: target });
     }catch(err){
+        console.log(err)
         res.status(403).send({ message: 'error', contents: []})
     }
 }
