@@ -3,6 +3,7 @@ import ActivityRoute from './Activity'
 import ArticleRoute from './Article'
 import DeckRoute from './Deck'
 import UserRoute from './User'
+import HomeRoute from './Home'
 
 const wrap = fn => (...args) => fn(...args).catch(args[2])
 
@@ -33,6 +34,8 @@ function main(app) {
   app.get('/api/getUserArticles', wrap(UserRoute.GetUserArticles))
     // get user card deck
   app.get('/api/getUserDecks', wrap(UserRoute.GetUserDecks))
+  // about home
+  app.get('/api/initHome', wrap(HomeRoute.initHome))
   
 }
 

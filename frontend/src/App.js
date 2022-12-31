@@ -212,8 +212,17 @@ const getUserDecks = async () => {
   console.log(contents);
 };
 
+// about home
+const initHome = async () => {
+  const {
+    data: { message, contents },
+  } = await instance.get("/initHome", {
+  });
+  console.log(contents);
+};
+
 function App() {
-  getCardFromSixSet();
+  initHome();
 }
 
 export default App;

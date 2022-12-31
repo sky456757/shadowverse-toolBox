@@ -46,7 +46,7 @@ exports.GetCardFromSixSet = async(req, res) => {
     const pack = ["基本卡", "十禍鬥爭", "天象樂土", "極天龍鳴", "示天龍劍", "超越災禍"]
     try{
         const target = await Card_content.find(
-            { $or: [{Card_pack: {$in: pack}, Craft: {$in: crafts}}] });
+            { $or: [{Card_pack: {$in: pack}, Craft: {$in: crafts}}] }).sort({"Cost": 1}).select('Card_name Cost');
         console.log(target)
         res.status(200).send({ message: 'success', contents: target });
     }catch(err){
