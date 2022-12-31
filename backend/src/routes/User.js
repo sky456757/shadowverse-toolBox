@@ -57,28 +57,26 @@ exports.insertUser = async (req, res) => {
 };
 
 // insert deck
+let newDeckId = 0;
 exports.insertDeck = async (req, res) => {
   const body = req.body;
-  console.log(body);
-  let newDeckId = null;
+  // console.log(body);
   try {
     const newUserDeck = new UserDeck({
+      Deck_ID: newDeckId,
       User_ID: body.User_ID,
       craft: body.craft,
       mode: body.mode,
       info: body.info,
       name: body.name,
     });
-    await newUserDeck.save(function (err, deck) {
-      newDeckId = deck._id;
-      console.log("inhere:", newDeckId);
-    });
-  } catch (err) {
-    res.status(403).send({ message: "error" });
-  }
-  console.log("middle:", newDeckId);
-  try {
-    console.log("innext:", newDeckId);
+    // console.log(newUserDeck);
+    // await newUserDeck.save(function (err, deck) {
+    //   newDeckId += 1
+    //   // newDeckId = deck._id;
+    //   // console.log("inhere:", newDeckId);
+    // });
+    await newUserDeck.save();
     for (let i = 0; i < body.card.length; i++) {
       console.log(i, newDeckId);
       const newDeck = new Deck({
@@ -88,6 +86,7 @@ exports.insertDeck = async (req, res) => {
       });
       await newDeck.save();
     }
+    newDeckId += 1;
   } catch (err) {
     res.status(403).send({ message: "error" });
   }

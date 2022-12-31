@@ -73,10 +73,9 @@ const getInitDeck = async () => {
   console.log(contents);
 };
 
-// ??
 const getDeckDetailbyID = async () => {
   // example
-  const id = "63af0c0e5282126c43a7d846";
+  const id = 1;
 
   const {
     data: { message, contents },
@@ -137,7 +136,7 @@ const insertArticle = async () => {
   });
 };
 
-// insert deck ??
+// insert deck
 const insertDeck = async () => {
   //example
   const User_ID = 1;
@@ -187,7 +186,7 @@ const getUserDecks = async () => {
 };
 
 function App() {
-  getUserbyUserID();
+  getDeckDetailbyID();
 }
 
 export default App;
