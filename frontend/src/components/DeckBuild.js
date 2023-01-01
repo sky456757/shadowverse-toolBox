@@ -126,12 +126,7 @@ export default function DeckBuild() {
     } = await instance.get("/getUserByID", {
       params: { User_ID: localStorage.getItem("uid") },
     });
-    if(!contents)
-    {
-        navigate('/')
-        alert("user not found")
-
-    }
+    
 
 
     setUser(contents.User_name)
