@@ -49,6 +49,21 @@ exports.GetUserByID = async (req, res) => {
     res.status(403).send({ message: "error", contents: [] });
   }
 };
+exports.UpdateUserByID = async (req, res) => {
+  const id = req.query.User_ID;
+  const rank = req.query.rank;
+  const info = req.query.info;
+  try {
+    let target = await User.findOne({ User_ID: id });
+    target.User_info = info
+    target.User_rank = rank
+    console.log(target);
+    await target.save();
+    res.status(200).send({ message: "success", contents: target });
+  } catch (err) {
+    res.status(403).send({ message: "error", contents: [] });
+  }
+};
 
 // insert user
 exports.insertUser = async (req, res) => {

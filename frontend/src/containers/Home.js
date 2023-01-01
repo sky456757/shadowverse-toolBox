@@ -14,9 +14,7 @@ import ArticleCard from "../components/ArticleCard";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from "axios";
-const instance = axios.create({
-  baseURL: "http://localhost:4000/api",
-});
+import instance from "../api";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',

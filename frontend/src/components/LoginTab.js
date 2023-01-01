@@ -16,10 +16,7 @@ import { useNavigate } from "react-router-dom";
 import SendIcon from '@mui/icons-material/Send';
 import Grid from '@mui/material/Unstable_Grid2';
 import TextField from '@mui/material/TextField';
-import axios from "axios";
-const instance = axios.create({
-  baseURL: "http://localhost:4000/api",
-});
+import instance from "../api";
 const theme = createTheme({
 
     palette: {

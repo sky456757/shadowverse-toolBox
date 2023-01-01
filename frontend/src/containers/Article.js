@@ -12,9 +12,8 @@ import Stack from '@mui/material/Stack';
 import { createTheme ,ThemeProvider, responsiveFontSizes} from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import axios from "axios";
-const instance = axios.create({
-  baseURL: "http://localhost:4000/api",
-});
+import instance from "../api";
+
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',

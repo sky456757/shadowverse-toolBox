@@ -10,10 +10,7 @@ import Stack from '@mui/material/Stack';
 import ArticleCard from "../components/ArticleCard";
 import UserTab from "../components/UserTab";
 import Typography from '@mui/material/Typography';
-import axios from "axios";
-const instance = axios.create({
-  baseURL: "http://localhost:4000/api",
-});
+import instance from "../api";
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -91,7 +88,7 @@ function User() {
         getUserArticles(id)
         getUserDecks(id)
         
-      }, [])
+      }, [id])
 	return (
     	<>
             <HeadNav/>
@@ -148,7 +145,7 @@ function User() {
                                 <Stack spacing={2}>
                                     <Box></Box>
                                     <Item>
-                                        <UserTab info={info} setInfo={setInfo} rank={rank} setRank={setRank} articles={articles} decks={decks} user={name}/>
+                                        <UserTab info={info} setInfo={setInfo} rank={rank} setRank={setRank} articles={articles} decks={decks} user={name} id={id}/>
                                     </Item>
                                 </Stack>
                             </Grid>

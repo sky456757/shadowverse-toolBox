@@ -27,6 +27,7 @@ function main(app) {
     // get user
   app.get('/api/getUser', wrap(UserRoute.GetUser))
   app.get('/api/getUserByID', wrap(UserRoute.GetUserByID))
+  app.get('/api/updateUserByID', wrap(UserRoute.UpdateUserByID))
     // insert articles
   app.post('/api/insertArticle', wrap(UserRoute.insertArticle))
     // insert deck

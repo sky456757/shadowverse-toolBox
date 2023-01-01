@@ -19,6 +19,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import instance from "../api";
 const ranks = ["Beginner","C","B","A","AA","Master","Grand Master"]
 const theme = createTheme({
 
@@ -94,19 +95,67 @@ function a11yProps(index) {
   };
 }
 
-export default function UserTab({info,setInfo,rank,setRank,articles,decks,user}) {
+export default function UserTab({info,setInfo,rank,setRank,articles,decks,user,id}) {
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [tempInfo, setTempInfo] = React.useState(info);
   const [tempRank, setTempRank] = React.useState(rank);
+  const [deckID,setDeckID] = React.useState("1");
+  const [deck,setDeck] = React.useState([]);
+  const updateUserbyUserID = async () => {
+    // example
+
+  
+    const {
+      data: { message, contents },
+    } = await instance.get("/updateUserByID", {
+      params: { User_ID: id,rank:tempRank,info:tempInfo},
+    });
+    console.log(contents);
+
+    return contents
+  };
+  const getDeckDetailbyID = async () => {
+    // example
+    
+  
+    const {
+      data: { message, contents },
+    } = await instance.get("/deckDetail", {
+      params: { Deck_ID: deckID },
+    });
+    //alert(contents[0])
+    setDeck(contents.deckCard)
+    console.log(contents);
+  };
+  React.useEffect(() => {
+       
+    getDeckDetailbyID()
+
+  }, [deckID])
   const handleOpen = (ind) => 
   {
-      setOpen(true);
+    
+    setDeckID(ind)
+    setOpen(true);
       
       //alert(ind);
   }
+
   
   const handleClose = () => setOpen(false);
+  const handleEdit = () => 
+  {
+	if(tempInfo.length!= 0)
+	{
+		setInfo(tempInfo); 
+		setRank(tempRank);
+		updateUserbyUserID()
+	}
+	else
+		alert("自我介紹不可為空")
+
+  }
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -118,14 +167,14 @@ export default function UserTab({info,setInfo,rank,setRank,articles,decks,user})
         <Tabs textColor="primary" indicatorColor="primary" value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="分享的牌組" {...a11yProps(0)} />
           <Tab label="撰寫的文章" {...a11yProps(1)} />
-          <Tab label="設定" {...a11yProps(2)} />
+          {id === localStorage.getItem("uid") ? <Tab label="設定" {...a11yProps(2)} />:null}
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
         <Stack spacing={2}>
           {
             decks.map((d)=>(
-            <Button color="secondary"onClick = {() => handleOpen()}> 
+            <Button color="secondary"onClick = {() => handleOpen(d.Deck_ID)}> 
               <DeckCard name ={d.name} info={d.info} user={user} time = {d.created_at.slice(0,10)} craft = {d.craft}/>
             </Button>      
             ))
@@ -139,36 +188,40 @@ export default function UserTab({info,setInfo,rank,setRank,articles,decks,user})
             }
         </Stack> 
       </TabPanel>
+      {id === localStorage.getItem("uid") ? 
       <TabPanel value={value} index={2}>
-        <Stack spacing={2}>
+      <Stack spacing={2}>
 
-            <FormControl fullWidth>
-                  <InputLabel id="cost-label">階級</InputLabel>
-                  <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={tempRank}
-                  label="craft"
-                  onChange={(e)=>setTempRank(e.target.value)}
-                  >	
-                    {ranks.map((c) => (<MenuItem value={c}>{c}</MenuItem>))}
-                  </Select>
-            </FormControl>
-            <Box>自我介紹:</Box>
-            <TextareaAutosize value = {info} minRows={3} onChange={(e) => {setTempInfo(e.currentTarget.value);}}/>
-            <Box></Box>
-        </Stack> 
-        <Grid sx={{ width: '100%', height :'5vh',alignItems: "center",justifyContent: 'end',display:'flex'}} columns={{ xs: 12, sm: 12, md: 12 }}>
-            <Grid item xs={3} sm={3} md={10} alignItems="center" justifyContent = "start" height = {1}>
-                
-            </Grid>
-            <Grid item xs={3} sm={3} md={2} alignItems="center" display = "flex"justifyContent = "end" height = {1}>
-                <Button onClick={() => {setInfo(tempInfo); setRank(tempRank);}}  variant="outlined" color="primary" endIcon={<SendIcon />}>修改</Button>
-            </Grid>
-        </Grid>
-       
+          <FormControl fullWidth>
+                <InputLabel id="cost-label">階級</InputLabel>
+                <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={tempRank}
+                label="craft"
+                onChange={(e)=>setTempRank(e.target.value)}
+                >	
+                  {ranks.map((c) => (<MenuItem value={c}>{c}</MenuItem>))}
+                </Select>
+          </FormControl>
+          <Box>自我介紹:</Box>
+          <TextareaAutosize value = {tempInfo} minRows={3} onChange={(e) => {setTempInfo(e.currentTarget.value);}}/>
+          <Box></Box>
+      </Stack> 
+      <Grid sx={{ width: '100%', height :'5vh',alignItems: "center",justifyContent: 'end',display:'flex'}} columns={{ xs: 12, sm: 12, md: 12 }}>
+          <Grid item xs={3} sm={3} md={10} alignItems="center" justifyContent = "start" height = {1}>
+              
+          </Grid>
+          <Grid item xs={3} sm={3} md={2} alignItems="center" display = "flex"justifyContent = "end" height = {1}>
+              <Button onClick={handleEdit}  variant="outlined" color="primary" endIcon={<SendIcon />}>修改</Button>
+          </Grid>
+      </Grid>
+     
 
-      </TabPanel>
+    </TabPanel>
+    : null
+      }
+      
     </Box>
     <Modal
                 open={open}
@@ -179,25 +232,26 @@ export default function UserTab({info,setInfo,rank,setRank,articles,decks,user})
                 <Box sx={style}>
                     <Stack direction="row" spacing={2}>
                         <Grid sx={{ width: '100%', height :'10%',alignContent: "center",alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
-                            {
-                            [0,0,0,0,0,0,0,0,0].map(() =>(
-                                <Grid item xs={3} sm={3} md={5}  alignItems="center" justifyContent = "center" display="flex">
-                                    <Item2>
-                                        <Grid sx={{ width: '100%', height :'2%',alignContent: "center",alignItems: "center",justifyContent: 'center',display:'flex'}} padding = {0}container spacing={{ xs: 2, md: 0 }} columns={{ xs: 9, sm: 9, md: 9 }}>
-                                            <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
-                                                <p>費用 ?</p>
-                                            </Grid>
-                                            <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
-                                                <p>卡名 ?</p>
-                                            </Grid>
-                                            <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
-                                                <p>張數 ?</p>
-                                            </Grid>
-                                        </Grid>
-                                    </Item2>
-                                </Grid>
+                        {
+                            deck.map((d) =>(
+                              <Grid item xs={3} sm={3} md={5}  alignItems="center" justifyContent = "center" display="flex">
+                                  <Item2>
+                                      <Grid sx={{ width: '100%', height :'2%',alignContent: "center",alignItems: "center",justifyContent: 'center',display:'flex'}} padding = {0}container spacing={{ xs: 2, md: 0 }} columns={{ xs: 9, sm: 9, md: 9 }}>
+                                          <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
+                                            <p>{"費用"+d.Card_cost}</p>
+                                          </Grid>
+                                          <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
+                                            <p>{d.Card_name}</p>
+                                          </Grid>
+                                          <Grid item xs={3} sm={3} md={3}  alignItems="center" justifyContent = "center">
+                                            <p>{"x"+d.Amount}</p>
+                                          </Grid>
+                                      </Grid>
+                                  </Item2>
+                              </Grid>
                             ))
                             } 
+  
                         </Grid>
                     </Stack>
                 </Box>

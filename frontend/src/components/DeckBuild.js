@@ -17,10 +17,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
 import { Stack } from '@mui/system';
-import axios from "axios";
-const instance = axios.create({
-  baseURL: "http://localhost:4000/api",
-});
+import instance from "../api";
 function not(a, b) {
   return a.filter((value) => b.indexOf(value) === -1);
 }
