@@ -75,7 +75,6 @@ function SendDeck() {
                             <Item>
                                 <Stack spacing={2}>
                                     <Box></Box>
-                                    <Box component = "h1">製作牌組</Box>
                                     <DeckBuild />
                                     <Box></Box>
                                 </Stack> 

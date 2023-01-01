@@ -17,7 +17,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import { useNavigate ,useLocation,useParams} from "react-router-dom";
-
+import Pagination from '@mui/material/Pagination'
 import { Stack } from '@mui/system';
 import instance from "../api";
 function not(a, b) {
@@ -43,6 +43,12 @@ export default function DeckBuild() {
   const [user,setUser] = React.useState("");
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
+  const [page, setPage] = React.useState(1);
+  const [maxPage, setMaxPage] = React.useState(10);
+  const handleChange = (event, value) => {
+    setPage(value);
+    //alert(value)
+};
   const navigate = useNavigate();
   
   const insertDeck = async () => {
@@ -86,7 +92,7 @@ export default function DeckBuild() {
     const {
       data: { message, contents },
     } = await instance.get("/getCardFromSixSet", {
-      params: { craft: craft },
+      params: { craft: craft ,page:page},
     });
     for(var i = 0;i< contents.length;i++)
     {
@@ -96,12 +102,20 @@ export default function DeckBuild() {
     }
       
     console.log(contents);
+    //alert(message)
+    setMaxPage(message)
     setLeft(contents)
-    setRight([])
+    
   };
   React.useEffect(() => {
     // Just run the first time
     getCardFromSixSet()
+    //alert('render')
+  }, [page])
+  React.useEffect(() => {
+    // Just run the first time
+    getCardFromSixSet()
+    setRight([])
     //alert('render')
   }, [craft])
   const getUserbyUserID = async () => {
@@ -153,10 +167,28 @@ export default function DeckBuild() {
   };
 
   const handleCheckedRight = () => {
-    setRight(right.concat(leftChecked));
+    let templeft = leftChecked
+    let filterLeft = templeft.filter(l=>
+    {
+      let ch = 0
+      for(var i = 0 ; i< right.length;i++)
+      {
+        //alert(1)
+        //alert(Object.keys(right[i]))
+        if(l._id == right[i]._id)
+        {
+          //alert(1)
+          ch=1;
+          break
+        }
+      }
+      //alert(ch)
+      return(ch == 0)
+    })
+    setRight(right.concat(filterLeft));
     setLeft(not(left, leftChecked));
     let a = 0;
-    right.concat(leftChecked).forEach((e)=>{a+=e.amount})
+    right.concat(filterLeft).forEach((e)=>{a+=e.amount})
     setAmount(a)
     //alert(a)
     setChecked(not(checked, leftChecked));
@@ -315,11 +347,20 @@ export default function DeckBuild() {
         </Grid>
         <Grid item>{customList('已選卡片', right,setRight)}</Grid>
       </Grid>
-      <Grid sx={{ width: '100%', height :'7vh',alignItems: "center",justifyContent: 'end',display:'flex'}} columns={{ xs: 12, sm: 12, md: 12 }}>
-          <Grid item xs={3} sm={3} md={10} alignItems="center" justifyContent = "start" height = {1}>
-                                        
+      
+      <Grid sx={{ width: '100%', height :'3vh',alignItems: "center",justifyContent: 'center',display:'flex'}} columns={{ xs: 12, sm: 12, md: 12 }}>
+          <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
+            
           </Grid>
-          <Grid item xs={3} sm={3} md={2} alignItems="center" display = "flex"justifyContent = "end" height = {1}>
+          <Grid item xs={3} sm={3} md={6} alignItems="center" display = "flex"justifyContent = "start" height = {1}>
+            <Pagination count={maxPage} page ={page} onChange = {handleChange}/> 
+          </Grid>
+      </Grid>
+      <Grid sx={{ width: '100%', height :'7vh',alignItems: "center",justifyContent: 'end',display:'flex'}} columns={{ xs: 12, sm: 12, md: 12 }}>
+          <Grid item xs={3} sm={3} md={10} alignItems="center" justifyContent = "center" height = {0.5}>
+           
+          </Grid>
+          <Grid item xs={3} sm={3} md={2} alignItems="center" display = "flex"justifyContent = "end" height = {0.5}>
               {amount == 40 ? 
                <Button onClick={handleSend}  variant="outlined" color="primary" endIcon={<SendIcon />}>送出</Button>
                : 

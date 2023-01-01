@@ -67,14 +67,17 @@ exports.GetCard = async(req, res) => {
 // Get card in six set that satisfies craft
 exports.GetCardFromSixSet = async(req, res) => {
     const craft = req.query.craft
+    const page = req.query.page
     let crafts = ["中立"]
     crafts.push(craft)
     const pack = ["基本卡", "十禍鬥爭", "天象樂土", "極天龍鳴", "示天龍劍", "超越災禍"]
     try{
-        const target = await Card_content.find(
-            { $or: [{Card_pack: {$in: pack}, Craft: {$in: crafts}}] }).sort({"Cost": 1}).select('Card_name Cost');
-        console.log(target)
-        res.status(200).send({ message: 'success', contents: target });
+        const target = await Card_content.find({ $or: [{Card_pack: {$in: pack}, Craft: {$in: crafts}}] }).sort({"Cost": 1}).skip(20 * (page-1)).limit(20).select('Card_name Cost');
+        let p = await Card_content.find({ $or: [{Card_pack: {$in: pack}, Craft: {$in: crafts}}] }).count()
+        //console.log(p)
+        p = Math.ceil(p/20)
+        //console.log(target)
+        res.status(200).send({ message: p, contents: target });
     }catch(err){
         res.status(403).send({ message: 'error', contents: []})
     }
