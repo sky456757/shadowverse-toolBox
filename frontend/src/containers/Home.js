@@ -48,13 +48,10 @@ const style = {
 const displayTitle = (T) =>
 (
     <Grid sx={{ width: '70%', height :'9vh',alignItems: "center",justifyContent: 'space-around',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
-        <Grid item xs={3} sm={3} md={3} alignItems="center" justifyContent = "center" height = {1}>
+        <Grid item xs={3} sm={3} md={12} alignItems="center" justifyContent = "center" height = {1}>
             <Typography variant="h5">{T}</Typography>
         </Grid>
-        <Grid item xs={3} sm={3} md={6} alignItems="center" justifyContent = "center" height = {1}>
-        </Grid>
-        <Grid item xs={3} sm={3} md={3} alignItems="center" justifyContent = "center" textAlign="center" height = {1}>
-        </Grid>
+
     </Grid>
 )
 const displaySideTitle = (T) =>
