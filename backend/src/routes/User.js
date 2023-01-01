@@ -2,6 +2,17 @@ import User from "../models/User.js";
 import Article from "../models/Article.js";
 import UserDeck from "../models/UserDeck.js";
 import Deck from "../models/Deck.js";
+const crypto = require('crypto')
+const SECRET_KEY = 'WJiol_8776#'
+function md5(content) {
+  let md5 = crypto.createHash('md5')
+  return md5.update(content).digest('hex') 
+}
+function genPassword(password) {
+  const str = `password=${password}&key=${SECRET_KEY}` 
+  return md5(str)
+}
+
 function getRandom(min,max){
   return Math.floor(Math.random()*(max-min+1))+min;
 };
@@ -32,10 +43,19 @@ exports.GetUserDecks = async (req, res) => {
 // Get User content by user name
 exports.GetUser = async (req, res) => {
   const id = req.query.User_ID;
+  const password = genPassword(req.query.password);
   try {
     const target = await User.findOne({ User_name: id });
-    console.log(target);
-    res.status(200).send({ message: "success", contents: target });
+    console.log(req.query.User_ID);
+    console.log(req.query.password);
+    if(target)
+      console.log(target);
+    console.log(password);
+    let m = "success"
+    if(target)
+      if(password != target.User_password)
+        m = "password wrong"
+    res.status(200).send({ message: m, contents: target });
   } catch (err) {
     res.status(403).send({ message: "error", contents: [] });
   }
@@ -43,6 +63,7 @@ exports.GetUser = async (req, res) => {
 // Get User content by user id
 exports.GetUserByID = async (req, res) => {
   const id = req.query.User_ID;
+  
   try {
     const target = await User.findOne({ User_ID: id });
     console.log(target);
@@ -74,7 +95,7 @@ exports.insertUser = async (req, res) => {
   const newUser = new User({
     User_ID: String(uid),
     User_name: body.User_name,
-    User_password: body.User_password,
+    User_password: genPassword(body.User_password),
     User_rank: "Beginner",
     User_info: "這個人很懶，還沒寫自我介紹",
   });

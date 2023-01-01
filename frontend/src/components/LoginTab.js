@@ -102,21 +102,22 @@ export default function LoginTab({info,setInfo}) {
     const {
       data: { message, contents },
     } = await instance.get("/getUser", {
-      params: { User_ID: id },
+      params: { User_ID: id ,password: tempPassword},
     });
     console.log(contents);
     setTempUser(contents)
-    return contents
+    return [contents,message]
   };
   const handleLogIn = async () => {
     let us = await getUserbyUserID()
     if(tempID != "" && tempPassword!= "")
     {
-      if(!us)
+      if(!us[0])
         alert("用戶名不存在")
       else
       {
-        if(tempPassword != us.User_password)
+        //alert(us[1])
+        if(us[1] == "password wrong")
           alert("密碼錯誤")
         else
         {
@@ -135,7 +136,7 @@ export default function LoginTab({info,setInfo}) {
     let us = await getUserbyUserID()
     if(tempID != "" && tempPassword!= "")
     {
-      if(us)
+      if(us[0])
         alert("用戶名已被使用")
       else
       {
