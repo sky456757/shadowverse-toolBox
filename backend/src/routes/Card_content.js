@@ -1,4 +1,4 @@
-import Card_content from '../models/Card_content'
+import Card_content from '../models/Card_content.js'
 
 // Get only _id, cardname and image for all cards
 exports.InitCard = async(req, res) => {

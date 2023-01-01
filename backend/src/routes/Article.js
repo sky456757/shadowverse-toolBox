@@ -1,4 +1,4 @@
-import Article from '../models/Article'
+import Article from '../models/Article.js'
 
 // Init card
 exports.InitArticle = async(req, res) => {

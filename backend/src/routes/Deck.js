@@ -1,5 +1,5 @@
-import Deck from '../models/Deck'
-import UserDeck from '../models/UserDeck'
+import Deck from '../models/Deck.js'
+import UserDeck from '../models/UserDeck.js'
 
 exports.InitDeck = async(req, res) => {
     const page = req.query.page

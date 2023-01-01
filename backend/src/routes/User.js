@@ -1,7 +1,7 @@
-import User from "../models/User";
-import Article from "../models/Article";
-import UserDeck from "../models/UserDeck";
-import Deck from "../models/Deck";
+import User from "../models/User.js";
+import Article from "../models/Article.js";
+import UserDeck from "../models/UserDeck.js";
+import Deck from "../models/Deck.js";
 function getRandom(min,max){
   return Math.floor(Math.random()*(max-min+1))+min;
 };

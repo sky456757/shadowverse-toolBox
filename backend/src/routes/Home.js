@@ -1,6 +1,6 @@
-import Article from "../models/Article";
-import UserDeck from "../models/UserDeck";
-import Activity from "../models/Activity";
+import Article from "../models/Article.js";
+import UserDeck from "../models/UserDeck.js";
+import Activity from "../models/Activity.js";
 
 // Get init Home
 exports.initHome = async(req, res) => {

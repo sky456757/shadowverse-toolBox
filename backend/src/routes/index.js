@@ -1,9 +1,9 @@
-import CardRoute from './Card_content'
+import CardRoute from './Card_content.js'
 import ActivityRoute from './Activity'
-import ArticleRoute from './Article'
-import DeckRoute from './Deck'
-import UserRoute from './User'
-import HomeRoute from './Home'
+import ArticleRoute from './Article.js'
+import DeckRoute from './Deck.js'
+import UserRoute from './User.js'
+import HomeRoute from './Home.js'
 
 const wrap = fn => (...args) => fn(...args).catch(args[2])
 

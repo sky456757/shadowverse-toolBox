@@ -1,9 +1,9 @@
 import express from 'express'
 import cors from 'cors'
-import routes from './routes'
+import routes from './routes/index.js'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser';
-import db from './db';
+import db from './db.js';
 //console.log(process.env.MONGO_URL) 
 db.connect();
 const app = express()
