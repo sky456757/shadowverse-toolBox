@@ -12,7 +12,7 @@
   },
   "scripts": {
     "server": "nodemon src/server.js --ext js --exec babel-node",
-    "start": "nodemon src/server.js --ext js --exec babel-node
+    "start": "nodemon src/server.js --ext js --exec babel-node"
   },
   "devDependencies": {
     "@babel/cli": "^7.20.7",
