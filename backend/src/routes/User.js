@@ -2,7 +2,9 @@ import User from "../models/User";
 import Article from "../models/Article";
 import UserDeck from "../models/UserDeck";
 import Deck from "../models/Deck";
-
+function getRandom(min,max){
+  return Math.floor(Math.random()*(max-min+1))+min;
+};
 // Get Article content by user id
 exports.GetUserArticles = async (req, res) => {
   const id = req.query.User_ID;
@@ -131,13 +133,17 @@ exports.insertDeck = async (req, res) => {
 // insert Article
 exports.insertArticle = async (req, res) => {
   const body = req.body;
+  const count = await Article.find({}).count();
+  let img = "https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/"
+  let list = ["01.png","02.png","03.png","04.png","05.png","06.png","07.png","08.png","09.png","10.png","11.png"]
   console.log(body);
   const newArticle = new Article({
+    Artical_ID: String(count+1),
     Artical_name: body.Artical_name,
     Author_ID: String(body.Author_ID),
     Content: body.Content,
-    Comments: body.Comments,
-    image: body.image,
+    Comments: [],
+    image: img+list[getRandom(0,list.length-1)],
   });
   
   try {

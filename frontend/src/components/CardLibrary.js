@@ -37,7 +37,6 @@ const Item = styled(Paper)(({ theme }) => ({
 const costs = ["all",0,1,2,3,4,5,6,7,8,9,"10+"]
 const rares = ["all","青銅","白銀","黃金","傳說"]
 const crafts = ["all","中立","精靈","皇家護衛","巫師","龍族","死靈法師","吸血鬼","主教","復仇者"]
-const lin =  ["https://shadowverse-portal.com/image/card/phase2/common/C/C_107834020.png","https://shadowverse-portal.com/image/card/phase2/common/C/C_115814010.png?202211181636"]
 function CardLibrary() {
     const [page, setPage] = useState(1);
     const [open, setOpen] = useState(false);
