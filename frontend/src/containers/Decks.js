@@ -13,10 +13,7 @@ import Stack from '@mui/material/Stack';
 import { useNavigate } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import axios from "axios";
-const instance = axios.create({
-  baseURL: "http://localhost:4000/api",
-});
+import instance from "../api";
 const style = {
     position: 'absolute',
     top: '50%',
