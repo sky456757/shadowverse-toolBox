@@ -16,6 +16,8 @@ import Modal from '@mui/material/Modal';
 import axios from "axios";
 import instance from "../api";
 
+
+
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -74,6 +76,7 @@ function Home() {
       const [deck,setDeck] = useState([]);
       const [articles,setArticles] = useState([]);
       const [activities,setActivities] = useState([]);
+
       const initHome = async () => {
         const {
           data: { message, contents },
