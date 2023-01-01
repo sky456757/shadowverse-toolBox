@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 const UserDeckSchema = Schema({
     Deck_ID: {type: Number, require: true},
-    User_ID: {type: Number, require: true},
+    User_ID: {type: String, require: true},
     User_Name: {type: String, require: true},
     craft: {type: String, require: true},
     mode: {type: String, require: true},

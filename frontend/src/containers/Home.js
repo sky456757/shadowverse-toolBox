@@ -78,6 +78,7 @@ function Home() {
       const [deckID,setDeckID] = useState("1");
       const [deck,setDeck] = useState([]);
       const [articles,setArticles] = useState([]);
+      const [activities,setActivities] = useState([]);
       const initHome = async () => {
         const {
           data: { message, contents },
@@ -85,7 +86,8 @@ function Home() {
         });
         setDecks(contents.deck)
         setArticles(contents.article)
-        
+        setActivities(contents.activity)
+       
         console.log(contents);
       };
       const getDeckDetailbyID = async () => {
@@ -190,18 +192,16 @@ function Home() {
                                 {displaySideTitle("活動時程")}
                                 <Stack spacing={2}>
                                     <Box></Box>
-                                    <Item>
-                                        <Box>活動一</Box> 
-                                        <Box textAlign="end">剩餘 00:00</Box>
-                                    </Item>
-                                    <Item>
-                                        <Box>活動二</Box> 
-                                        <Box textAlign="end">剩餘 00:00</Box>
-                                    </Item>
-                                    <Item>
-                                        <Box>活動三</Box> 
-                                        <Box textAlign="end">剩餘 00:00</Box>
-                                    </Item>
+                                    {
+                                        activities.map((a)=>
+                                        (
+                                            <Item>
+                                                <Box>{a.name}</Box> 
+                                                <Box textAlign="end">{"結束 "+a.End_date}</Box>
+                                            </Item>
+                                        ))
+                                    }
+                 
                                 </Stack>
                             </Grid>
                         </Grid>

@@ -55,7 +55,7 @@ exports.insertUser = async (req, res) => {
   const body = req.body;
   let uid = await User.find({}).count() +1
   const newUser = new User({
-    User_ID: uid,
+    User_ID: String(uid),
     User_name: body.User_name,
     User_password: body.User_password,
     User_rank: "Beginner",
@@ -112,7 +112,7 @@ exports.insertArticle = async (req, res) => {
   console.log(body);
   const newArticle = new Article({
     Artical_name: body.Artical_name,
-    Author_ID: body.Author_ID,
+    Author_ID: String(body.Author_ID),
     Content: body.Content,
     Comments: body.Comments,
     image: body.image,

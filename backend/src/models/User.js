@@ -3,7 +3,7 @@ import mongoose, { model } from 'mongoose'
 const Schema = mongoose.Schema
 
 const UserSchema = Schema({
-    User_ID: {type: Number, require: true},
+    User_ID: {type: String, require: true},
     User_name: {type: String, require: true},
     User_password: {type: String, require: true},
     User_rank: {type: String, require: true},
