@@ -5,9 +5,9 @@ import Activity from "../models/Activity.js";
 // Get init Home
 exports.initHome = async(req, res) => {
     try{
-        const article = await Article.find({}).sort({"created_at": 1}).limit(8);
+        const article = await Article.find({}).sort({"created_at": -1}).limit(8);
         console.log("article:", article)
-        const deck = await UserDeck.find({}).sort({"created_at": 1}).limit(5);
+        const deck = await UserDeck.find({}).sort({"created_at": -1}).limit(5);
         console.log("deck:",deck)
         const activity = await Activity.find({}).sort({"created_at": 1});
         console.log("activity:",activity)

@@ -4,7 +4,7 @@ import UserDeck from '../models/UserDeck.js'
 exports.InitDeck = async(req, res) => {
     const page = req.query.page
     try{
-        const target = await UserDeck.find({}).skip(15 * (page-1)).limit(15).select('Deck_ID User_ID User_Name info name craft created_at');
+        const target = await UserDeck.find({}).sort({"created_at": -1}).skip(15 * (page-1)).limit(15).select('Deck_ID User_ID User_Name info name craft created_at');
         let p = await UserDeck.find({}).count()
         p = Math.ceil(p/15)
         console.log(target)

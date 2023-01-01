@@ -4,7 +4,7 @@ import Article from '../models/Article.js'
 exports.InitArticle = async(req, res) => {
     const page = req.query.page
     try{
-        const target = await Article.find({}).skip(5 * (page-1)).limit(5).select('_id Artical_name Artical_ID Content image');
+        const target = await Article.find({}).sort({"created_at": -1}).skip(5 * (page-1)).limit(5).select('_id Artical_name Artical_ID Content image');
         let p = await Article.find({}).count()
         p = Math.ceil(p/5)
         console.log(target)
