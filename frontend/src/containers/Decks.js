@@ -158,7 +158,10 @@ function Decks() {
 
                             </Grid>
                             <Stack spacing={2} direction="row">
-                                <Button onClick={()=> navigate('/decks/send')}  size="medium" variant="outlined" color="success" endIcon={<AddCardIcon />}>分享牌組</Button>
+                                {localStorage.getItem("uid")?
+                                    <Button onClick={()=> navigate('/decks/send')}  size="medium" variant="outlined" color="success" endIcon={<AddCardIcon />}>分享牌組</Button>
+                                    :<Button disabled size="medium" variant="outlined" color="success" endIcon={<AddCardIcon />}>分享牌組</Button>
+                                }
                             </Stack>
                         </Grid>
                         <Grid sx={{ width: '67%', height :'20%',alignItems: "center",justifyContent: 'start',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>

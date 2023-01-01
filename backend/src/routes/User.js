@@ -86,14 +86,17 @@ exports.insertUser = async (req, res) => {
 };
 
 // insert deck
-let newDeckId = 0;
+
 exports.insertDeck = async (req, res) => {
+  console.log("get");
   const body = req.body;
-  // console.log(body);
+  const count = await UserDeck.find({}).count();
+  console.log(body);
   try {
     const newUserDeck = new UserDeck({
-      Deck_ID: newDeckId,
-      User_ID: body.User_ID,
+      Deck_ID: String(count+1),
+      User_ID: String(body.User_ID),
+      User_Name: body.User_Name,
       craft: body.craft,
       mode: body.mode,
       info: body.info,
@@ -107,16 +110,20 @@ exports.insertDeck = async (req, res) => {
     // });
     await newUserDeck.save();
     for (let i = 0; i < body.card.length; i++) {
-      console.log(i, newDeckId);
+      console.log(i, String(count+1));
       const newDeck = new Deck({
-        Deck_ID: newDeckId,
-        Card_ID: body.card[i].Card_ID,
+        Deck_ID: String(count+1),
+        Card_ID: body.card[i]._id,
+        Card_cost: body.card[i].Cost,
+        Card_name: body.card[i].Card_name,
         Amount: body.card[i].amount,
       });
       await newDeck.save();
     }
-    newDeckId += 1;
+    res.status(200).send({ message: "success" });
+    
   } catch (err) {
+    console.log(err);
     res.status(403).send({ message: "error" });
   }
 };
@@ -132,8 +139,10 @@ exports.insertArticle = async (req, res) => {
     Comments: body.Comments,
     image: body.image,
   });
+  
   try {
     await newArticle.save();
+    res.status(200).send({ message: "success" });
   } catch (err) {
     res.status(403).send({ message: "error" });
   }

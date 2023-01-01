@@ -29,6 +29,7 @@ function User() {
     const [time, setTime] = useState("xx/xx/xx");
     const [articles, setArticles] = useState([]);
     const [decks, setDecks] = useState([]);
+    const [trigger, setTrigger] = useState(false);
     let { id } = useParams();
     const navigate = useNavigate();
     const getUserbyUserID = async (id) => {
@@ -89,6 +90,14 @@ function User() {
         getUserDecks(id)
         
       }, [id])
+      useEffect( () => {
+        // Just run the first time
+        setTrigger(true)
+        
+
+
+        
+      }, [info])
 	return (
     	<>
             <HeadNav/>
@@ -145,7 +154,9 @@ function User() {
                                 <Stack spacing={2}>
                                     <Box></Box>
                                     <Item>
-                                        <UserTab info={info} setInfo={setInfo} rank={rank} setRank={setRank} articles={articles} decks={decks} user={name} id={id}/>
+                                        { trigger?
+                                          <UserTab info={info} setInfo={setInfo} rank={rank} setRank={setRank} articles={articles} decks={decks} user={name} id={id}/>
+                                        : null}
                                     </Item>
                                 </Stack>
                             </Grid>

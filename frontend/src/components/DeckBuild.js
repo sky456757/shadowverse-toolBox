@@ -15,6 +15,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import TextareaAutosize from '@mui/base/TextareaAutosize';
+import { useNavigate ,useLocation,useParams} from "react-router-dom";
 
 import { Stack } from '@mui/system';
 import instance from "../api";
@@ -36,8 +38,48 @@ export default function DeckBuild() {
   const [right, setRight] = React.useState([]);
   const [amount,setAmount] = React.useState(0);
   const [craft,setCraft] = React.useState("精靈");
+  const [info,setInfo] = React.useState("");
+  const [name,setName] = React.useState("");
+  const [user,setUser] = React.useState("");
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
+  const navigate = useNavigate();
+  
+  const insertDeck = async () => {
+    //example
+
+    const User_ID = localStorage.getItem("uid");
+
+    const mode = "指定模式";
+
+    //const card = right;
+  
+    await instance.post("/insertDeck", {
+      User_ID: User_ID,
+      User_Name: user,
+      craft: craft,
+      mode: mode,
+      info: info,
+      name: name,
+      card: right,
+    }).catch(function(error) {
+      console.log(error);
+    });;
+  };
+  const handleSend = async () =>{
+    if(name.length>6 || info.length>20)
+    {
+      alert("卡組名或簡介太長")
+    }
+    else if(name.length==0 || info.length==0)
+    {
+      alert("卡組名或不可為空")
+    }
+    await insertDeck()
+    alert("分享成功")
+    navigate('/decks')
+
+  }
   const getCardFromSixSet = async () => {
     // example
   
@@ -55,14 +97,36 @@ export default function DeckBuild() {
       
     console.log(contents);
     setLeft(contents)
+    setRight([])
   };
   React.useEffect(() => {
     // Just run the first time
     getCardFromSixSet()
     //alert('render')
   }, [craft])
+  const getUserbyUserID = async () => {
+    // example
+  
+    const {
+      data: { message, contents },
+    } = await instance.get("/getUserByID", {
+      params: { User_ID: localStorage.getItem("uid") },
+    });
+    if(!contents)
+    {
+        navigate('/')
+        alert("user not found")
+
+    }
+
+
+    setUser(contents.User_name)
+    console.log(contents);
+    return contents
+  };
   React.useEffect(() => {
     // Just run the first time
+    getUserbyUserID()
     //alert(craft)
   }, [])
   const handleToggle = (value) => () => {
@@ -218,6 +282,10 @@ export default function DeckBuild() {
             	{crafts.map((c) => (<MenuItem value={c}>{c}</MenuItem>))}
           	</Select>
       </FormControl>
+      <Box>卡組名:(上限6個字)</Box>
+      <TextareaAutosize value = {name} minRows={1} onChange={(e) => {setName(e.currentTarget.value);}}/>
+      <Box>卡組簡介:(上限20個字)</Box>
+      <TextareaAutosize value = {info} minRows={2} onChange={(e) => {setInfo(e.currentTarget.value);}}/>
       <Grid container spacing={2} justifyContent="center" alignItems="center">
         
         <Grid item>{customList('所有卡片', left,setLeft)}</Grid>
@@ -253,7 +321,7 @@ export default function DeckBuild() {
           </Grid>
           <Grid item xs={3} sm={3} md={2} alignItems="center" display = "flex"justifyContent = "end" height = {1}>
               {amount == 40 ? 
-               <Button onClick={() => {alert('clicked');}}  variant="outlined" color="primary" endIcon={<SendIcon />}>送出</Button>
+               <Button onClick={handleSend}  variant="outlined" color="primary" endIcon={<SendIcon />}>送出</Button>
                : 
                <Button disabled variant="outlined" color="primary" endIcon={<SendIcon />}>送出</Button>} 
              
