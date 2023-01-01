@@ -122,7 +122,7 @@ export default function LoginTab({info,setInfo}) {
         else
         {
           alert("登入成功")
-          localStorage.setItem("uid",us.User_ID)
+          localStorage.setItem("uid",us[0].User_ID)
           navigate('/')
 
         }
