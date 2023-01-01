@@ -133,6 +133,12 @@ export default function UserTab({info,setInfo,rank,setRank,articles,decks,user,i
     getDeckDetailbyID()
 
   }, [deckID])
+  React.useEffect(() => {
+       
+    setTempInfo(info)
+    setTempRank(rank)
+
+  }, [value])
   const handleOpen = (ind) => 
   {
     
