@@ -58,8 +58,8 @@ function Article() {
         //alert(contents)
         if(!contents || message =="error")
         {
-            alert("article not found")
-            navigate('/')
+            //alert("article not found")
+            navigate('/notfound')
 
         }
         setArticle(contents)

@@ -168,9 +168,9 @@ function Decks() {
                             {
                                 decks.map((d) =>(
                                     <Grid item xs={3} sm={3} md={2} alignItems="center" justifyContent = "center" >
-                                        <Button onClick = {() => handleOpen(d.Deck_ID)}> 
+                                        <Box onClick = {() => handleOpen(d.Deck_ID)}> 
                                             <DeckCard name ={d.name} info={d.info} user={d.User_Name} time = {d.created_at.slice(0,10)} craft = {d.craft}/>
-                                        </Button>
+                                        </Box>
                                     </Grid>
                                 ))
                             } 

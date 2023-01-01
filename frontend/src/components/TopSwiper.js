@@ -56,9 +56,9 @@ const TopSwiper =  () => {
         "--swiper-pagination-color": "grey",
       }}
     >
-      <Sl link = {imgLink[0]}><h1>置頂文章 3</h1></Sl>
-      <Sl link = {imgLink[1]} onClick={() => alert('swiper')}><h1>置頂文章 1</h1></Sl>
-      <Sl link = {imgLink[2]} onClick={()=> navigate('/cards')}><h1>置頂文章 2</h1></Sl>
+      <Sl link = {imgLink[0]} onClick={()=> navigate('/articles/3')}><h1>置頂文章 3</h1></Sl>
+      <Sl link = {imgLink[1]} onClick={()=> navigate('/articles/1')}><h1>置頂文章 1</h1></Sl>
+      <Sl link = {imgLink[2]} onClick={()=> navigate('/articles/2')}><h1>置頂文章 2</h1></Sl>
     </Sw>
   );
 };

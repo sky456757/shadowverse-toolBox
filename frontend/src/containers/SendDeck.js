@@ -35,8 +35,14 @@ const theme = createTheme({
 const imglink = "https://store.ymgal.games/archive/main/d5/d5fc5153d78c42d28f29c8bd2132b21d.webp"
 function SendDeck() {
     //const [amount,setAmount] = useState(0);
+    const navigate = useNavigate();
     useEffect(() => {
         // Just run the first time
+        if(!localStorage.getItem("uid"))
+        {
+            
+            navigate('/notfound')
+        }
       }, [])
 	return (
     	<>  

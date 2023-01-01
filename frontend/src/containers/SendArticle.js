@@ -67,8 +67,8 @@ function SendArticle() {
         // Just run the first time
         if(!localStorage.getItem("uid"))
         {
-            alert("NF")
-            navigate('/a')
+            
+            navigate('/notfound')
         }
       }, [])
 	return (

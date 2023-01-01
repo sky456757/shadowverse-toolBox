@@ -12,6 +12,7 @@ import SendArticle from './containers/SendArticle';
 import SendDeck from './containers/SendDeck';
 import Article from './containers/Article';
 import Login from './containers/Login';
+import NotFound from './containers/NotFound';
 let theme = createTheme({
 
     palette: {
@@ -42,6 +43,7 @@ function App() {
         <Route  path='/battles' element={<Battles/>} /> 
         <Route  path='/user/:id' element={<User/>} /> 
         <Route  path='/login' element={<Login/>} /> 
+        <Route  path='/*' element={<NotFound/>} /> 
 			</Routes>
 		</ThemeProvider>
 

@@ -42,8 +42,8 @@ function User() {
         });
         if(!contents)
         {
-            navigate('/')
-            alert("user not found")
+            navigate('/notfound')
+            
     
         }
         setInfo(contents.User_info)

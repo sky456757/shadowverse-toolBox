@@ -174,9 +174,9 @@ export default function UserTab({info,setInfo,rank,setRank,articles,decks,user,i
         <Stack spacing={2}>
           {
             decks.map((d)=>(
-            <Button color="secondary"onClick = {() => handleOpen(d.Deck_ID)}> 
+            <Box color="secondary"onClick = {() => handleOpen(d.Deck_ID)}> 
               <DeckCard name ={d.name} info={d.info} user={user} time = {d.created_at.slice(0,10)} craft = {d.craft}/>
-            </Button>      
+            </Box>      
             ))
           }                
         </Stack> 
