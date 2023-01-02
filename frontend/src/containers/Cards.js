@@ -33,7 +33,7 @@ function Cards() {
                 justifyContent: 'center',
                 alignContent: "center",
                 width: '100%',
-                height: '230vh',
+                height: '240vh',
                 margin: 0,
             }}
             >

@@ -174,8 +174,9 @@ function CardLibrary() {
                             </Grid>
                         )
                     )}
-                    <Grid item xs={4} sm={8} md={12} height ={0.02} alignItems="center">
-                      <Stack spacing={2} alignItems="center" height="100%">
+                    <Grid item xs={4} sm={8} md={12} height ={0.06} display="flex" alignContent = "start" justifyContent = "center" >
+                      <Stack spacing={2} display="flex" alignItems="center" alignContent = "center" height="100%">
+
                           <Pagination count={maxPage} page ={page} onChange = {handleChange}/>
                       </Stack>
                     </Grid>
