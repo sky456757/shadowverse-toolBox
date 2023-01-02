@@ -120,7 +120,7 @@ function Articles() {
                             //articles.map((a)=>(alert(a.Artical_name)))
                             }
 
-                            <Grid sx={{ width: '70%', height :'30%',alignItems: "start",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
+                            <Grid sx={{ width: '70%', height :'10%',alignItems: "start",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
                             </Grid>
                             <Grid item xs={4} sm={8} md={12} height ={0.02} width ={1} alignItems="center">
                                 <Stack spacing={2} alignItems="center" height="100%">

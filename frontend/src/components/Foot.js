@@ -39,7 +39,7 @@ function Foot() {
 
                 }}
                 >
-                    <p> ©SV-ToolBox. All Rights Reserved! · version: v0.01</p>
+                    <p> ©SV-ToolBox. All Rights Reserved! · version: v0.87</p>
                 </Box>
                 
             </Box>

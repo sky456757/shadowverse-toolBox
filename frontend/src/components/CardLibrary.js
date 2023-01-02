@@ -108,9 +108,9 @@ function CardLibrary() {
 	return (
     	<>
             <Box sx={{ flexGrow: 1 ,height :'100%',width:'100%',display: { xs: 'none', md: 'flex' }, alignItems: "end",justifyContent: 'center'}}>
-                <Grid sx={{ width: '72%', height :'100%',alignItems: "space-around",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                <Grid sx={{ width: '72%', height :'100%',alignItems: "center",alignContent: "start",justifyContent: 'start',display:'flex'}}  container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                   <Grid item xs={4} sm={8} md={12} backgroundColor = "#F5F5F5" height ={0.05} width = '100%'alignItems="center" justifyContent = "center" m={0} borderRadius = "3%">
-                    <Stack direction="row" spacing={2} alignItems="center" justifyContent = "center" height = "100%">
+                    <Stack direction="row" spacing={2} alignItems="center" justifyContent = "start" height = "100%">
                         <FormControl fullWidth>
                             <InputLabel id="cost-label">費用</InputLabel>
                             <Select
@@ -157,8 +157,9 @@ function CardLibrary() {
                         (
                             <Grid item xs={2} sm={4} md={2} key={c._id}>
                                 <Item>
-                                    <Button onClick = {() => handleOpen(c._id)}>
+                                    
                                         <Box
+                                        onClick = {() => handleOpen(c._id)}
                                         component="img"
                                         sx={{
                                         height: '100%',
@@ -167,7 +168,7 @@ function CardLibrary() {
                                         }}
                                         src= {c.Image[0]}
                                         />
-                                    </Button>
+                                    
                                     
                                 </Item>
                             </Grid>

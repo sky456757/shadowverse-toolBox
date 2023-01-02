@@ -154,7 +154,7 @@ function Home() {
                         </Grid>
                         {displayTitle("精選牌組")}
                         
-                        <Grid sx={{ width: '70%', height :'12%',alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
+                        <Grid sx={{ width: '70%', height :'12%',alignItems: "center",justifyContent: 'start',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
                             {
                                 decks.map((d) =>(
                                     <Grid item xs={3} sm={3} md={2} alignItems="center" justifyContent = "center" height = {1}>
@@ -216,7 +216,7 @@ function Home() {
             >
                 <Box sx={style}>
                     <Stack direction="row" spacing={2}>
-                        <Grid sx={{ width: '100%', height :'10%',alignContent: "center",alignItems: "center",justifyContent: 'center',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
+                        <Grid sx={{ width: '100%', height :'10%',alignContent: "center",alignItems: "center",justifyContent: 'start',display:'flex'}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 10, md: 10 }}>
                             {
                             deck.map((d) =>(
                                 <Grid item xs={3} sm={3} md={5}  alignItems="center" justifyContent = "center" display="flex">
