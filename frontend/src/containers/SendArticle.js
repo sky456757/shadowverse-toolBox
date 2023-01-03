@@ -58,9 +58,13 @@ function SendArticle() {
         {
           alert("標題或內文不可為空")
         }
-        await insertArticle()
-        alert("分享成功")
-        navigate('/articles')
+        else
+        {
+          await insertArticle()
+          alert("分享成功")
+          navigate('/articles')
+        }
+        
     
       }
     useEffect(() => {

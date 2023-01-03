@@ -81,9 +81,12 @@ export default function DeckBuild() {
     {
       alert("卡組名或不可為空")
     }
-    await insertDeck()
-    alert("分享成功")
-    navigate('/decks')
+    else
+    {
+      await insertDeck()
+      alert("分享成功")
+      navigate('/decks')
+    }
 
   }
   const getCardFromSixSet = async () => {
