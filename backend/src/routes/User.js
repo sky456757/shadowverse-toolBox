@@ -20,7 +20,7 @@ function getRandom(min,max){
 exports.GetUserArticles = async (req, res) => {
   const id = req.query.User_ID;
   try {
-    const target = await Article.find({ Author_ID: id }).sort({"created_at": -1});
+    const target = await Article.find({ Author_ID: id }).sort({"created_at": -1}).limit(8);
     console.log(target);
     res.status(200).send({ message: "success", contents: target });
   } catch (err) {
@@ -32,7 +32,7 @@ exports.GetUserArticles = async (req, res) => {
 exports.GetUserDecks = async (req, res) => {
   const id = req.query.User_ID;
   try {
-    const target = await UserDeck.find({ User_ID: id }).sort({"created_at": -1});
+    const target = await UserDeck.find({ User_ID: id }).sort({"created_at": -1}).limit(5);
     console.log(target);
     res.status(200).send({ message: "success", contents: target });
   } catch (err) {
