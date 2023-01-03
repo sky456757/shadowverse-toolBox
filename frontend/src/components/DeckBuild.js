@@ -173,7 +173,8 @@ export default function DeckBuild() {
       {
         //alert(1)
         //alert(Object.keys(right[i]))
-        if(l._id == right[i]._id)
+        //alert(Object.keys(l))
+        if(l.Card_name == right[i].Card_name)
         {
           //alert(1)
           ch=1;
@@ -184,7 +185,7 @@ export default function DeckBuild() {
       return(ch == 0)
     })
     setRight(right.concat(filterLeft));
-    setLeft(not(left, leftChecked));
+    setLeft(not(left, filterLeft));
     let a = 0;
     right.concat(filterLeft).forEach((e)=>{a+=e.amount})
     setAmount(a)
