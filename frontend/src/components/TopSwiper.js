@@ -11,9 +11,10 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 //import 'swiper/css/autoplay';
 //SwiperCore.use([Autoplay]);
-const imgLink = ["url(https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/01.png)",
-                 "url(https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/02.png)",
-                 "url(https://cdn.jsdelivr.net/gh/sky456757/imgHost@latest/img/random/03.png)"]
+const imgLink = ["url(https://cdn.jsdelivr.net/gh/sky456757/imgHost/img/202301032033494.png)",
+                 "url(https://cdn.jsdelivr.net/gh/sky456757/imgHost/img/202301032034237.png)",
+                 "url(https://cdn.jsdelivr.net/gh/sky456757/imgHost/img/202301032037735.png)"]
+            
 
 const Sw = styled(Swiper)(({ theme }) => ({
   padding: theme.spacing(1),
@@ -56,9 +57,9 @@ const TopSwiper =  () => {
         "--swiper-pagination-color": "grey",
       }}
     >
-      <Sl link = {imgLink[0]} onClick={()=> navigate('/articles/3')}><h1>置頂文章 3</h1></Sl>
-      <Sl link = {imgLink[1]} onClick={()=> navigate('/articles/1')}><h1>置頂文章 1</h1></Sl>
-      <Sl link = {imgLink[2]} onClick={()=> navigate('/articles/2')}><h1>置頂文章 2</h1></Sl>
+      <Sl link = {imgLink[2]} onClick={()=> navigate('/articles/3')}><h1>置頂文章 3</h1></Sl>
+      <Sl link = {imgLink[0]} onClick={()=> navigate('/articles/1')}><h1>置頂文章 1</h1></Sl>
+      <Sl link = {imgLink[1]} onClick={()=> navigate('/articles/2')}><h1>置頂文章 2</h1></Sl>
     </Sw>
   );
 };
